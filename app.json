@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "VideoCallingApp",
-    "slug": "VideoCallingApp",
+    "name": "Video Calling App",
+    "slug": "Video Calling App",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
