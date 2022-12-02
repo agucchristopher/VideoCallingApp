@@ -1,3 +1,3 @@
 ## Video Calling App
 
-### A simple video alli
+### A simple video calling app made with React Native
