@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 0,
     backgroundColor: "white",
-    height: 60,
+    height: 50,
     borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
@@ -49,6 +49,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 8,
     elevation: 2,
+    borderColor: "darkgrey",
+    borderWidth: 1,
   },
   icon: {
     margin: 3,
