@@ -1,4 +1,10 @@
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React, { useEffect } from "react";
 import Stack from "./src/navigation/";
 import { NavigationContainer } from "@react-navigation/native";
@@ -15,13 +21,19 @@ const App = () => {
   }, []);
 
   return !fontsloaded ? (
-    <ActivityIndicator
-      color={"dodgerblue"}
-      style={{ alignSelf: "center", flex: 1 }}
-      size={60}
-    />
+    <>
+      <StatusBar backgroundColor={"white"} barStyle={"light-content"} />
+      <ActivityIndicator
+        color={"dodgerblue"}
+        style={{ alignSelf: "center", flex: 1 }}
+        size={60}
+      />
+    </>
   ) : (
-    <Stack />
+    <>
+      <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
+      <Stack />
+    </>
   );
 };
 

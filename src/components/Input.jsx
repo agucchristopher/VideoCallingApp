@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     marginVertical: 0,
-    backgroundColor: "#e8e8e0",
+    backgroundColor: "white",
     height: 60,
     borderRadius: 15,
     alignItems: "center",
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     borderColor: "white",
     alignSelf: "center",
     marginBottom: 8,
+    elevation: 2,
   },
   icon: {
     margin: 3,

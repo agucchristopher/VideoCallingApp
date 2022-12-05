@@ -41,5 +41,6 @@ const styles = StyleSheet.create({
     color: "white",
     width: "95%",
     alignSelf: "center",
+    elevation: 2,
   },
 });

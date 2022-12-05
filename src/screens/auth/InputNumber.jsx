@@ -129,7 +129,7 @@ const InputNumber = () => {
           marginBottom: 2,
         }}
       >
-        <TouchableOpacity
+        <View
           style={{
             borderColor: "grey",
             borderWidth: 1.4,
@@ -165,8 +165,8 @@ const InputNumber = () => {
           >
             Sign In With Facebook
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </View>
+        <View
           style={{
             borderColor: "grey",
             borderWidth: 1.4,
@@ -204,7 +204,7 @@ const InputNumber = () => {
           >
             Sign In With Google
           </Text>
-        </TouchableOpacity>
+        </View>
       </View>
       {view ? (
         <View
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
     padding: 5,
     // alignItems: 'stretch',
     flex: 1,
-    marginTop: StatusBar.currentHeight,
+    // marginTop: StatusBar.currentHeight,
     backgroundColor: "white",
     height: Dimensions.get("screen").height,
   },

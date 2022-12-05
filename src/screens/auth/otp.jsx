@@ -61,7 +61,7 @@ export default Otp;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: StatusBar.currentHeight,
+    // marginTop: StatusBar.currentHeight,
     backgroundColor: "white",
     flex: 1,
   },
