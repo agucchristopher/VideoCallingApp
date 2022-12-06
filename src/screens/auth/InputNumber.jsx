@@ -15,6 +15,7 @@ import {
   ScrollView,
   Keyboard,
   Dimensions,
+  Image,
 } from "react-native";
 import { AuthHeader, Button, Input } from "../../components";
 import {
@@ -22,23 +23,15 @@ import {
   FontAwesome5,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import facebook from "../../../assets/images/facebook.jpg";
+import google from "../../../assets/images/google.jpg";
+import LinearGradient from "react-native-linear-gradient";
 const InputNumber = () => {
   const [Phone, setPhone] = useState("");
   const [loading, setloading] = useState(false);
   const navigation = useNavigation();
   const [view, setview] = useState(true);
-  // useEffect(() => {
-  //   const connect = async () => {
-  //     const status = await voximplant.getClientState();
-  //     if (status === Voximplant.ClientState.DISCONNECTED) {
-  //       await voximplant.connect();
-  //     } else if (status === Voximplant.ClientState.LOGGED_IN) {
-  //       redirectHome();
-  //     }
-  //   };
 
-  //   connect();
-  // }, []);
   useEffect(() => {
     setloading(false);
   }, []);
@@ -62,7 +55,7 @@ const InputNumber = () => {
           fontFamily: "NotoSans-Bold",
           fontSize: 23,
           alignSelf: "center",
-          marginBottom: 0,
+          marginBottom: 20,
         }}
       >
         Enter Your Number
@@ -84,6 +77,7 @@ const InputNumber = () => {
         loading={loading}
         title={"Continue"}
       />
+
       <View
         style={{
           margin: 10,
@@ -129,7 +123,7 @@ const InputNumber = () => {
           marginBottom: 2,
         }}
       >
-        <View
+        <TouchableOpacity
           style={{
             borderColor: "grey",
             borderWidth: 1.4,
@@ -141,8 +135,9 @@ const InputNumber = () => {
             alignContent: "center",
             alignSelf: "center",
           }}
+          onPress={() => navigation.navigate("Glogin")}
         >
-          <MaterialCommunityIcons
+          {/* <MaterialCommunityIcons
             name="facebook"
             size={40}
             style={{
@@ -152,6 +147,17 @@ const InputNumber = () => {
               borderWidth: 0,
               borderRadius: 30,
               padding: 5,
+            }}
+          /> */}
+          <Image
+            source={facebook}
+            resizeMode={"contain"}
+            style={{
+              width: 30,
+              height: 50,
+              marginLeft: 8,
+              marginRight: 8,
+              justifyContent: "center",
             }}
           />
           <Text
@@ -165,8 +171,8 @@ const InputNumber = () => {
           >
             Sign In With Facebook
           </Text>
-        </View>
-        <View
+        </TouchableOpacity>
+        <TouchableOpacity
           style={{
             borderColor: "grey",
             borderWidth: 1.4,
@@ -179,7 +185,7 @@ const InputNumber = () => {
             alignSelf: "center",
           }}
         >
-          <MaterialCommunityIcons
+          {/* <MaterialCommunityIcons
             name="google"
             size={40}
             style={{
@@ -191,6 +197,17 @@ const InputNumber = () => {
               borderWidth: 0,
               borderRadius: 30,
               padding: 5,
+            }}
+          /> */}
+          <Image
+            source={google}
+            resizeMode={"contain"}
+            style={{
+              width: 30,
+              height: 50,
+              marginLeft: 8,
+              marginRight: 8,
+              justifyContent: "center",
             }}
           />
           <Text
@@ -204,7 +221,7 @@ const InputNumber = () => {
           >
             Sign In With Google
           </Text>
-        </View>
+        </TouchableOpacity>
       </View>
       {view ? (
         <View

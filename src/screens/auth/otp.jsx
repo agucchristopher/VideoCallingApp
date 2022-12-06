@@ -33,7 +33,7 @@ const Otp = () => {
   };
   return (
     <View style={styles.container}>
-      <Back title={"Comfirm OTP"} />
+      <Back />
       <Text style={styles.title}> An SMS code was sent to</Text>
       <Text style={styles.subtitle}>{`+234 ${newarr}`}</Text>
       <Pressable onPress={() => navigation.goBack()}>

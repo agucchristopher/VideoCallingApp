@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 const Input = ({
   value,
@@ -14,6 +14,7 @@ const Input = ({
   onFocus,
   AutoCapitalize,
 }) => {
+  const [focused, setfocused] = useState(false);
   return (
     <Pressable onPress={() => console.warn("Hey")} style={styles.container}>
       {icon ? <Ionicons name={icon} size={25} style={styles.icon} /> : ""}
@@ -26,6 +27,7 @@ const Input = ({
         secureTextEntry={secureTextEntry}
         onBlur={onBlur}
         onFocus={onFocus}
+        keyboardType={keyboardType}
       />
     </Pressable>
   );
@@ -38,19 +40,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 0,
     backgroundColor: "white",
-    height: 50,
-    borderRadius: 15,
+    height: 53,
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    width: "98%",
-    borderWidth: 1,
+    width: "96%",
+    // borderWidth: 1,
     paddingHorizontal: 10,
-    borderColor: "white",
+    // borderColor: "white",
     alignSelf: "center",
     marginBottom: 8,
     elevation: 2,
-    borderColor: "darkgrey",
     borderWidth: 1,
+    borderColor: !true ? "lightblue" : "white",
   },
   icon: {
     margin: 3,
