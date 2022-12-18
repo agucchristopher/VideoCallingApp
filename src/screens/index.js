@@ -1,4 +1,4 @@
 import Home from "./home";
-import { Signin, Otp, InputDetails, GoogleLogin } from "./auth";
+import { Signin, Otp, Signup, GoogleLogin } from "./auth";
 
-export { Home, Otp, Signin, InputDetails, GoogleLogin };
+export { Home, Otp, Signin, Signup, GoogleLogin };

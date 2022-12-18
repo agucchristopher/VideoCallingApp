@@ -20,6 +20,7 @@ import {
 import { AuthHeader, Button, Input } from "../../components";
 import facebook from "../../../assets/images/facebook.jpg";
 import google from "../../../assets/images/google.jpg";
+import axios from "axios";
 const Signin = () => {
   const [Password, setPassword] = useState("");
   const [Username, setUsername] = useState("");
@@ -31,10 +32,17 @@ const Signin = () => {
     setloading(false);
   }, []);
 
-  const Signupfn = async () => {
+  const Signinfn = async () => {
     setloading(true);
-    console.log(Username);
-    redirectOtp();
+    axios
+      .post("http://192.168.43.30:8080/users/test", { Username, Password })
+      .then((data) => {
+        if (data.data.status == "success") {
+          redirectOtp();
+        } else {
+          Alert.alert("Error");
+        }
+      });
   };
 
   const redirectOtp = () => {
@@ -43,20 +51,19 @@ const Signin = () => {
   };
 
   return (
-    <ScrollView style={styles.page}>
+    <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
       <Text style={styles.title}>Sign In</Text>
       <Text style={styles.subtitle}>Sign Into Your Account</Text>
       <Text style={styles.subtitle}>And Connect With People 🚀🚀</Text>
       <Input
-        dropdown={true}
         value={Username}
         onChangeText={(text) => {
           setUsername(text);
         }}
-        icon="caret-down"
         onFocus={() => setview(false)}
         onBlur={() => setview(true)}
         placeholder={"Username / Email"}
+        style={{ marginLeft: 0 }}
       />
       <Input
         dropdown={true}
@@ -64,19 +71,20 @@ const Signin = () => {
         onChangeText={(text) => {
           setPassword(text);
         }}
-        icon="caret-down"
         onFocus={() => setview(false)}
         onBlur={() => setview(true)}
         placeholder={"Password"}
-        secureTextEntry
         type={"password"}
       />
+      <Pressable style={styles.forgot}>
+        <Text style={styles.forgottext}>Forgot Password?</Text>
+      </Pressable>
       <Button
         onPress={() => {
-          !loading ? Signupfn() : "";
+          !loading ? Signinfn() : "";
         }}
         loading={loading}
-        title={"Sign In"}
+        title={"Continue"}
       />
       <View
         style={{
@@ -223,7 +231,7 @@ const Signin = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      {view ? (
+      {/* {view ? (
         <View
           style={{
             width: "100%",
@@ -252,7 +260,18 @@ const Signin = () => {
         </View>
       ) : (
         ""
-      )}
+      )} */}
+      <Pressable style={styles.sgn}>
+        <Text style={[styles.sgntext, { color: "black" }]}>
+          New to VideoCallingApp?{" "}
+          <Text
+            onPress={() => navigation.navigate("InputDetails")}
+            style={[styles.sgntext, { margin: 0 }]}
+          >
+            Register
+          </Text>
+        </Text>
+      </Pressable>
     </ScrollView>
   );
 };
@@ -265,23 +284,53 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: Dimensions.get("screen").height,
     alignContent: "center",
-    paddingLeft: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   title: {
-    marginTop: 40,
+    marginTop: 15,
     fontFamily: "NotoSans-Bold",
-    fontSize: 25,
+    fontSize: 20,
     alignSelf: "flex-start",
     marginBottom: 0,
     fontWeight: "600",
+    marginLeft: 10,
   },
   subtitle: {
     marginTop: 0,
     fontFamily: "NotoSans-Medium",
-    fontSize: 18,
+    fontSize: 15,
     alignSelf: "flex-start",
     marginBottom: 0,
     lineHeight: 20,
+    marginLeft: 11,
+  },
+  forgottext: {
+    // alignContent: "center",
+    // justifyContent: "flex-end",
+    fontFamily: "NotoSans-Medium",
+    alignSelf: "flex-end",
+    margin: 3,
+    fontSize: 13,
+    color: "#FF7955",
+  },
+  forgot: {
+    // alignContent: "flex-end",
+    // justifyContent: "flex-end",
+    width: "100%",
+  },
+  sgn: {
+    width: "100%",
+  },
+  sgntext: {
+    // alignContent: "center",
+    // justifyContent: "flex-end",
+    fontFamily: "NotoSans-Medium",
+    alignSelf: "center",
+    margin: 3,
+    fontSize: 13,
+    color: "#FF7955",
+    marginTop: "auto",
   },
 });
 

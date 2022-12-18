@@ -1,6 +1,6 @@
 import GoogleLogin from "./GoogleLogin";
-import InputDetails from "./InputDetails";
+import Signup from "./Signup";
 import Signin from "./Signin";
 import Otp from "./otp";
 
-export { Signin, Otp, InputDetails, GoogleLogin };
+export { Signin, Otp, Signup, GoogleLogin };

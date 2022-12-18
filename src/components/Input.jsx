@@ -20,7 +20,7 @@ const Input = ({
   const [focused, setfocused] = useState(false);
   const [open, setopen] = useState(true);
   return (
-    <View style={styles.root}>
+    <View style={[styles.root, style]}>
       <Text style={styles.placeholder}>{placeholder}</Text>
       <Pressable style={styles.container}>
         <TextInput
@@ -36,8 +36,9 @@ const Input = ({
         {type == "password" && (
           <Ionicons
             name={open ? "eye" : "eye-off"}
-            size={25}
+            size={26}
             style={{ marginRight: 3 }}
+            color="#121212"
             onPress={() => setopen(!open)}
           />
         )}
@@ -48,26 +49,65 @@ const Input = ({
 
 export default Input;
 
+{
+  /* <TouchableOpacity
+style={{
+  borderColor: "grey",
+  borderWidth: 1.4,
+  borderRadius: 25,
+  margin: 6,
+  height: 50,
+  flexDirection: "row",
+  justifyContent: "space-evenly",
+  alignContent: "center",
+  alignSelf: "center",
+}}
+onPress={() => navigation.navigate("Glogin")}
+>
+<Image
+  source={facebook}
+  resizeMode={"contain"}
+  style={{
+    width: 30,
+    height: 50,
+    marginLeft: 8,
+    marginRight: 8,
+    justifyContent: "center",
+  }}
+/>
+<Text
+  style={{
+    color: "grey",
+    fontSize: 15,
+    width: "80%",
+    fontFamily: "NotoSans-Medium",
+    alignSelf: "center",
+  }}
+>
+  Sign In With Facebook
+</Text>
+</TouchableOpacity> */
+}
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    backgroundColor: "white",
     minHeight: 50,
-    borderRadius: 25,
     alignItems: "center",
     justifyContent: "space-evenly",
-    width: "88%",
+    width: "95%",
     paddingHorizontal: 10,
-    borderColor: "black",
+    borderColor: "#1d1d1d",
     alignSelf: "center",
-    marginBottom: 5,
+    marginBottom: 3,
     elevation: 2,
-    borderWidth: 1,
     marginTop: 0,
+    borderWidth: 1.4,
+    borderRadius: 25,
+    margin: 0,
   },
   input: {
     color: "#2c2c2c",
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: "NotoSans-Bold",
     marginLeft: 5,
     textDecorationColor: "white",
@@ -83,7 +123,7 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     // alignSelf: "center",
-    marginLeft: "10%",
+    marginLeft: "8%",
     fontFamily: "NotoSans-Medium",
     fontSize: 15,
   },

@@ -20,7 +20,11 @@ const App = () => {
 
   return !fontsloaded ? (
     <>
-      <StatusBar backgroundColor={"transparent"} barStyle={"light-content"} />
+      <StatusBar
+        backgroundColor={"transparent"}
+        translucent
+        barStyle={"light-content"}
+      />
       <ActivityIndicator
         color={"#FF7955"}
         style={{ alignSelf: "center", flex: 1 }}
@@ -29,7 +33,13 @@ const App = () => {
     </>
   ) : (
     <>
-      <StatusBar backgroundColor={"transparent"} barStyle={"dark-content"} />
+      <StatusBar
+        backgroundColor={"transparent"}
+        animated
+        // hidden
+        translucent
+        barStyle={"dark-content"}
+      />
       <Stack />
     </>
   );
