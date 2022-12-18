@@ -13,25 +13,23 @@ import { useFonts } from "expo-font";
 const App = () => {
   const [fontsloaded] = useFonts({
     "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
-    "NotoSans-Bold": require("./assets/fonts/NotoSans-SemiBold.ttf"),
+    "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
+    "NotoSans-Bold": require("./assets/fonts/NotoSans-Bold.ttf"),
     "NotoSans-Medium": require("./assets/fonts/NotoSans-Medium.ttf"),
   });
-  useEffect(() => {
-    console.log(fontsloaded);
-  }, []);
 
   return !fontsloaded ? (
     <>
-      <StatusBar backgroundColor={"white"} barStyle={"light-content"} />
+      <StatusBar backgroundColor={"transparent"} barStyle={"light-content"} />
       <ActivityIndicator
-        color={"dodgerblue"}
+        color={"#FF7955"}
         style={{ alignSelf: "center", flex: 1 }}
         size={60}
       />
     </>
   ) : (
     <>
-      <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
+      <StatusBar backgroundColor={"transparent"} barStyle={"dark-content"} />
       <Stack />
     </>
   );

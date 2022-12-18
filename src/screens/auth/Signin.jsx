@@ -18,16 +18,11 @@ import {
   Image,
 } from "react-native";
 import { AuthHeader, Button, Input } from "../../components";
-import {
-  Ionicons,
-  FontAwesome5,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
 import facebook from "../../../assets/images/facebook.jpg";
 import google from "../../../assets/images/google.jpg";
-import LinearGradient from "react-native-linear-gradient";
-const InputNumber = () => {
-  const [Phone, setPhone] = useState("");
+const Signin = () => {
+  const [Password, setPassword] = useState("");
+  const [Username, setUsername] = useState("");
   const [loading, setloading] = useState(false);
   const navigation = useNavigation();
   const [view, setview] = useState(true);
@@ -36,48 +31,53 @@ const InputNumber = () => {
     setloading(false);
   }, []);
 
-  const InputNumberfn = async () => {
+  const Signupfn = async () => {
     setloading(true);
-    console.log(Phone);
+    console.log(Username);
     redirectOtp();
   };
 
   const redirectOtp = () => {
-    navigation.navigate("Otp", { Phone });
+    navigation.navigate("InputDetails");
     setloading(false);
   };
 
   return (
-    <View style={styles.page}>
-      <Text
-        style={{
-          marginTop: 40,
-          fontFamily: "NotoSans-Bold",
-          fontSize: 23,
-          alignSelf: "center",
-          marginBottom: 20,
-        }}
-      >
-        Enter Your Number
-      </Text>
+    <ScrollView style={styles.page}>
+      <Text style={styles.title}>Sign In</Text>
+      <Text style={styles.subtitle}>Sign Into Your Account</Text>
+      <Text style={styles.subtitle}>And Connect With People 🚀🚀</Text>
       <Input
-        value={Phone}
+        dropdown={true}
+        value={Username}
         onChangeText={(text) => {
-          setPhone(text);
+          setUsername(text);
         }}
+        icon="caret-down"
         onFocus={() => setview(false)}
         onBlur={() => setview(true)}
-        placeholder={"Phone Number"}
-        keyboardType="number-pad"
+        placeholder={"Username / Email"}
+      />
+      <Input
+        dropdown={true}
+        value={Password}
+        onChangeText={(text) => {
+          setPassword(text);
+        }}
+        icon="caret-down"
+        onFocus={() => setview(false)}
+        onBlur={() => setview(true)}
+        placeholder={"Password"}
+        secureTextEntry
+        type={"password"}
       />
       <Button
         onPress={() => {
-          !loading ? InputNumberfn() : "";
+          !loading ? Signupfn() : "";
         }}
         loading={loading}
-        title={"Continue"}
+        title={"Sign In"}
       />
-
       <View
         style={{
           margin: 10,
@@ -98,7 +98,7 @@ const InputNumber = () => {
           style={{
             alignSelf: "center",
             fontFamily: "NotoSans-Medium",
-            fontSize: 18,
+            fontSize: 15,
             margin: 5,
             letterSpacing: 0,
             color: "grey",
@@ -253,19 +253,36 @@ const InputNumber = () => {
       ) : (
         ""
       )}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   page: {
-    padding: 5,
     // alignItems: 'stretch',
     flex: 1,
     // marginTop: StatusBar.currentHeight,
     backgroundColor: "white",
     height: Dimensions.get("screen").height,
+    alignContent: "center",
+    paddingLeft: 2,
+  },
+  title: {
+    marginTop: 40,
+    fontFamily: "NotoSans-Bold",
+    fontSize: 25,
+    alignSelf: "flex-start",
+    marginBottom: 0,
+    fontWeight: "600",
+  },
+  subtitle: {
+    marginTop: 0,
+    fontFamily: "NotoSans-Medium",
+    fontSize: 18,
+    alignSelf: "flex-start",
+    marginBottom: 0,
+    lineHeight: 20,
   },
 });
 
-export default InputNumber;
+export default Signin;

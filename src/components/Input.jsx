@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import DropDownPicker from "react-native-dropdown-picker";
 const Input = ({
   value,
   password,
@@ -13,23 +14,35 @@ const Input = ({
   onBlur,
   onFocus,
   AutoCapitalize,
+  dropdown,
+  type,
 }) => {
   const [focused, setfocused] = useState(false);
+  const [open, setopen] = useState(true);
   return (
-    <Pressable onPress={() => console.warn("Hey")} style={styles.container}>
-      {icon ? <Ionicons name={icon} size={25} style={styles.icon} /> : ""}
-      <TextInput
-        value={value}
-        onChangeText={onChangeText}
-        placeholder={placeholder}
-        style={[styles.input, style]}
-        autoCapitalize="none"
-        secureTextEntry={secureTextEntry}
-        onBlur={onBlur}
-        onFocus={onFocus}
-        keyboardType={keyboardType}
-      />
-    </Pressable>
+    <View style={styles.root}>
+      <Text style={styles.placeholder}>{placeholder}</Text>
+      <Pressable style={styles.container}>
+        <TextInput
+          value={value}
+          onChangeText={onChangeText}
+          style={[styles.input, { width: type == "password" ? "85%" : "95%" }]}
+          autoCapitalize="none"
+          secureTextEntry={type == "password" && open}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          keyboardType={keyboardType}
+        />
+        {type == "password" && (
+          <Ionicons
+            name={open ? "eye" : "eye-off"}
+            size={25}
+            style={{ marginRight: 3 }}
+            onPress={() => setopen(!open)}
+          />
+        )}
+      </Pressable>
+    </View>
   );
 };
 
@@ -38,37 +51,40 @@ export default Input;
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginVertical: 0,
     backgroundColor: "white",
-    height: 53,
-    borderRadius: 10,
+    minHeight: 50,
+    borderRadius: 25,
     alignItems: "center",
-    justifyContent: "center",
-    width: "96%",
-    // borderWidth: 1,
+    justifyContent: "space-evenly",
+    width: "88%",
     paddingHorizontal: 10,
-    // borderColor: "white",
+    borderColor: "black",
     alignSelf: "center",
-    marginBottom: 8,
+    marginBottom: 5,
     elevation: 2,
     borderWidth: 1,
-    borderColor: !true ? "lightblue" : "white",
-  },
-  icon: {
-    margin: 3,
-    alignSelf: "center",
-    width: "10%",
-    color: "grey",
+    marginTop: 0,
   },
   input: {
-    width: "90%",
-    color: "balck",
-    fontSize: 20,
-    fontFamily: "Roboto-Bold",
+    color: "#2c2c2c",
+    fontSize: 12,
+    fontFamily: "NotoSans-Bold",
     marginLeft: 5,
-    letterSpacing: 2,
     textDecorationColor: "white",
     borderColor: "white",
     height: "100%",
+  },
+  root: {
+    padding: 0,
+    alignContent: "center",
+    width: "100%",
+    marginTop: 10,
+    justifyContent: "center",
+  },
+  placeholder: {
+    // alignSelf: "center",
+    marginLeft: "10%",
+    fontFamily: "NotoSans-Medium",
+    fontSize: 15,
   },
 });

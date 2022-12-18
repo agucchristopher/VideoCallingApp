@@ -14,9 +14,10 @@ const Button = ({ title, color, loading, onPress }) => {
         <Text
           style={{
             color: "white",
-            fontSize: 20,
+            fontSize: 15,
             fontFamily: "NotoSans-Bold",
             alignSelf: "center",
+            justifyContent: "center",
           }}
         >
           {title}
@@ -32,15 +33,16 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "dodgerblue",
+    backgroundColor: "#FF7955",
     padding: 10,
     marginVertical: 10,
     borderRadius: 30,
     alignItems: "center",
     height: 60,
     color: "white",
-    width: "95%",
+    width: "75%",
     alignSelf: "center",
     elevation: 2,
+    justifyContent: "center",
   },
 });
