@@ -21,6 +21,7 @@ import { AuthHeader, Button, Input } from "../../components";
 import facebook from "../../../assets/images/facebook.jpg";
 import google from "../../../assets/images/google.jpg";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Signin = () => {
   const [Password, setPassword] = useState("");
   const [Username, setUsername] = useState("");
@@ -29,6 +30,8 @@ const Signin = () => {
   const [view, setview] = useState(true);
 
   useEffect(() => {
+    const IsLoggedIn = AsyncStorage.getItem("IsLoggedIn");
+    IsLoggedIn && navigation.navigate("Home");
     setloading(false);
   }, []);
 
@@ -38,6 +41,7 @@ const Signin = () => {
       .post("http://192.168.43.30:8080/users/test", { Username, Password })
       .then((data) => {
         if (data.data.status == "success") {
+          AsyncStorage.setItem("IsLoggedIn", "true");
           redirectOtp();
         } else {
           Alert.alert("Error");
@@ -46,7 +50,7 @@ const Signin = () => {
   };
 
   const redirectOtp = () => {
-    navigation.navigate("InputDetails");
+    navigation.navigate("Home");
     setloading(false);
   };
 

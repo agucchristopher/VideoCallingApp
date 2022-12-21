@@ -9,6 +9,7 @@ import React, { useEffect } from "react";
 import Stack from "./src/navigation/";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import { Home } from "./src/screens";
 
 const App = () => {
   const [fontsloaded] = useFonts({

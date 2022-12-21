@@ -74,6 +74,11 @@ const Signup = () => {
       />
       <Input onChangeText={(text) => setgender(text)} placeholder={"Gender"} />
       <Input
+        onChangeText={(text) => setgender(text)}
+        type="dropdown"
+        placeholder={"Country"}
+      />
+      <Input
         onChangeText={(text) => setpassword(text)}
         type="password"
         placeholder={"Password"}
@@ -87,7 +92,7 @@ const Signup = () => {
         onPress={() => navigation.navigate("InputDetails")}
         title={"Continue"}
       />
-      <Modal
+      {/* <Modal
         style={{
           // backgroundColor: "white",
           alignSelf: "center",
@@ -99,7 +104,7 @@ const Signup = () => {
         }}
         // visible={true}
         animationType="slide"
-      ></Modal>
+      ></Modal> */}
       {view ? (
         <View
           style={{

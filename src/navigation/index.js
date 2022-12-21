@@ -17,6 +17,7 @@ const Navigation = () => {
         <Stack.Screen name="Otp" component={Otp} />
         <Stack.Screen name="InputDetails" component={Signup} />
         <Stack.Screen name="Glogin" component={GoogleLogin} />
+        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   );

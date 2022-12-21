@@ -22,18 +22,26 @@ const Input = ({
   return (
     <View style={[styles.root, style]}>
       <Text style={styles.placeholder}>{placeholder}</Text>
-      <Pressable style={styles.container}>
-        <TextInput
-          value={value}
-          onChangeText={onChangeText}
-          style={[styles.input, { width: type == "password" ? "85%" : "95%" }]}
-          autoCapitalize="none"
-          secureTextEntry={type == "password" && open}
-          onBlur={onBlur}
-          onFocus={onFocus}
-          keyboardType={keyboardType}
-        />
-        {type == "password" && (
+      <Pressable style={styles.container} onPress={setopen((value) => !value)}>
+        {type == "" ||
+          (type != "dropdown" ? (
+            <TextInput
+              value={value}
+              onChangeText={onChangeText}
+              style={[
+                styles.input,
+                { width: type == "password" ? "85%" : "95%" },
+              ]}
+              autoCapitalize="none"
+              secureTextEntry={type == "password" && open}
+              onBlur={onBlur}
+              onFocus={onFocus}
+              keyboardType={keyboardType}
+            />
+          ) : (
+            <Text style={styles.dropdowntext}>{"Nigeria"}</Text>
+          ))}
+        {type == "password" ? (
           <Ionicons
             name={open ? "eye" : "eye-off"}
             size={26}
@@ -41,7 +49,18 @@ const Input = ({
             color="#121212"
             onPress={() => setopen(!open)}
           />
+        ) : type == "dropdown" ? (
+          <Ionicons
+            name={open ? "caret-down" : "caret-down"}
+            size={26}
+            style={{ marginRight: 0 }}
+            color="#121212"
+            onPress={() => setopen(!open)}
+          />
+        ) : (
+          ""
         )}
+        {}
       </Pressable>
     </View>
   );
@@ -126,5 +145,17 @@ const styles = StyleSheet.create({
     marginLeft: "8%",
     fontFamily: "NotoSans-Medium",
     fontSize: 15,
+  },
+  dropdowntext: {
+    color: "#2c2c2c",
+    fontSize: 14,
+    fontFamily: "NotoSans-Bold",
+    marginLeft: 5,
+    textDecorationColor: "white",
+    borderColor: "white",
+    // height: "100%",
+    alignSelf: "center",
+    width: "80%",
+    justifyContent: "center",
   },
 });
