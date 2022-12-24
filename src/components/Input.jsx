@@ -22,7 +22,7 @@ const Input = ({
   return (
     <View style={[styles.root, style]}>
       <Text style={styles.placeholder}>{placeholder}</Text>
-      <Pressable style={styles.container} onPress={setopen((value) => !value)}>
+      <Pressable style={styles.container}>
         {type == "" ||
           (type != "dropdown" ? (
             <TextInput
@@ -60,7 +60,6 @@ const Input = ({
         ) : (
           ""
         )}
-        {}
       </Pressable>
     </View>
   );
@@ -110,7 +109,7 @@ onPress={() => navigation.navigate("Glogin")}
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    minHeight: 50,
+    minHeight: 60,
     alignItems: "center",
     justifyContent: "space-evenly",
     width: "95%",
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     marginTop: 0,
     borderWidth: 1.4,
-    borderRadius: 25,
+    borderRadius: 30,
     margin: 0,
   },
   input: {

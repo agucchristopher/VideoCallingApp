@@ -10,7 +10,7 @@ import {
   PanGestureHandler,
 } from "react-native-gesture-handler";
 
-const index = () => {
+const Home = () => {
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const gesture = useAnimatedGestureHandler(
@@ -19,9 +19,13 @@ const index = () => {
       onActive: (event) => {
         translateX.value = event.translationX;
         translateY.value = event.translationY;
+        // console.log(event.translationX);
       },
       onEnd: () => {
-        translateY.value = 0;
+        // translateY.value = 0;
+        if (translateX.value == -21) {
+          translateX.value = 0;
+        }
       },
     },
     []
@@ -47,7 +51,7 @@ const index = () => {
   );
 };
 
-export default index;
+export default Home;
 
 const styles = StyleSheet.create({
   container: {

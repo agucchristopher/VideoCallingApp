@@ -22,16 +22,18 @@ import facebook from "../../../assets/images/facebook.jpg";
 import google from "../../../assets/images/google.jpg";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import sms from "expo-sms";
+import { useLoginContext } from "../../contexts/LoggedIn";
 const Signin = () => {
   const [Password, setPassword] = useState("");
   const [Username, setUsername] = useState("");
   const [loading, setloading] = useState(false);
   const navigation = useNavigation();
   const [view, setview] = useState(true);
-
+  const { loggedin, setIsLoggedIn } = useLoginContext();
+  console.log(loggedin);
+  // loggedin == "true" ? navigation.navigate("Home") : "";
   useEffect(() => {
-    const IsLoggedIn = AsyncStorage.getItem("IsLoggedIn");
-    IsLoggedIn && navigation.navigate("Home");
     setloading(false);
   }, []);
 
@@ -41,7 +43,8 @@ const Signin = () => {
       .post("http://192.168.43.30:8080/users/test", { Username, Password })
       .then((data) => {
         if (data.data.status == "success") {
-          AsyncStorage.setItem("IsLoggedIn", "true");
+          setIsLoggedIn("true");
+          console.log(loggedin);
           redirectOtp();
         } else {
           Alert.alert("Error");
@@ -50,7 +53,7 @@ const Signin = () => {
   };
 
   const redirectOtp = () => {
-    navigation.navigate("Home");
+    // navigation.navigate("Home");
     setloading(false);
   };
 
@@ -149,18 +152,6 @@ const Signin = () => {
           }}
           onPress={() => navigation.navigate("Glogin")}
         >
-          {/* <MaterialCommunityIcons
-            name="facebook"
-            size={40}
-            style={{
-              color: "grey",
-              margin: 0,
-              alignSelf: "center",
-              borderWidth: 0,
-              borderRadius: 30,
-              padding: 5,
-            }}
-          /> */}
           <Image
             source={facebook}
             resizeMode={"contain"}
@@ -197,20 +188,6 @@ const Signin = () => {
             alignSelf: "center",
           }}
         >
-          {/* <MaterialCommunityIcons
-            name="google"
-            size={40}
-            style={{
-              color: "grey",
-              margin: 0,
-              alignSelf: "center",
-              justifyContent: "center",
-              alignItems: "center",
-              borderWidth: 0,
-              borderRadius: 30,
-              padding: 5,
-            }}
-          /> */}
           <Image
             source={google}
             resizeMode={"contain"}
@@ -235,7 +212,7 @@ const Signin = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      {/* {view ? (
+      {view ? (
         <View
           style={{
             width: "100%",
@@ -264,7 +241,7 @@ const Signin = () => {
         </View>
       ) : (
         ""
-      )} */}
+      )}
       <Pressable style={styles.sgn}>
         <Text style={[styles.sgntext, { color: "black" }]}>
           New to VideoCallingApp?{" "}

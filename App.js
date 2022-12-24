@@ -10,6 +10,7 @@ import Stack from "./src/navigation/";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Home } from "./src/screens";
+import { ContextProvider } from "./src/contexts/LoggedIn";
 
 const App = () => {
   const [fontsloaded] = useFonts({
@@ -33,7 +34,7 @@ const App = () => {
       />
     </>
   ) : (
-    <>
+    <ContextProvider>
       <StatusBar
         backgroundColor={"transparent"}
         animated
@@ -42,7 +43,7 @@ const App = () => {
         barStyle={"dark-content"}
       />
       <Stack />
-    </>
+    </ContextProvider>
   );
 };
 

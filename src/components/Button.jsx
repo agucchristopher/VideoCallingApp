@@ -38,11 +38,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 30,
     alignItems: "center",
-    minHeight: 45,
+    minHeight: 60,
     color: "white",
     width: "75%",
     alignSelf: "center",
     elevation: 2,
     justifyContent: "center",
+    marginBottom: 5,
   },
 });
