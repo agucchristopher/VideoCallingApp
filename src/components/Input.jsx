@@ -109,7 +109,7 @@ onPress={() => navigation.navigate("Glogin")}
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    minHeight: 60,
+    minHeight: 50,
     alignItems: "center",
     justifyContent: "space-evenly",
     width: "95%",

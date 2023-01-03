@@ -11,6 +11,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Home } from "./src/screens";
 import { ContextProvider } from "./src/contexts/LoggedIn";
+import {
+  MD3LightTheme as DefaultTheme,
+  Provider as PaperProvider,
+} from "react-native-paper";
 
 const App = () => {
   const [fontsloaded] = useFonts({
@@ -21,7 +25,7 @@ const App = () => {
   });
 
   return !fontsloaded ? (
-    <>
+    <PaperProvider>
       <StatusBar
         backgroundColor={"transparent"}
         translucent
@@ -32,18 +36,20 @@ const App = () => {
         style={{ alignSelf: "center", flex: 1 }}
         size={60}
       />
-    </>
+    </PaperProvider>
   ) : (
-    <ContextProvider>
-      <StatusBar
-        backgroundColor={"transparent"}
-        animated
-        // hidden
-        translucent
-        barStyle={"dark-content"}
-      />
-      <Stack />
-    </ContextProvider>
+    <PaperProvider>
+      <ContextProvider>
+        <StatusBar
+          backgroundColor={"transparent"}
+          animated
+          // hidden
+          translucent
+          barStyle={"dark-content"}
+        />
+        <Stack />
+      </ContextProvider>
+    </PaperProvider>
   );
 };
 

@@ -23,6 +23,7 @@ import google from "../../../assets/images/google.jpg";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import sms from "expo-sms";
+import { TextInput } from "react-native-paper";
 import { useLoginContext } from "../../contexts/LoggedIn";
 const Signin = () => {
   const [Password, setPassword] = useState("");
@@ -34,14 +35,20 @@ const Signin = () => {
   console.log(loggedin);
   // loggedin == "true" ? navigation.navigate("Home") : "";
   useEffect(() => {
+    console.log(loggedin);
     setloading(false);
   }, []);
 
   const Signinfn = async () => {
     setloading(true);
-    axios
-      .post("http://192.168.43.30:8080/users/test", { Username, Password })
+    await axios
+      .post("http://192.168.43.30:19000/users/signin", {
+        username: Username,
+        password: Password,
+      })
       .then((data) => {
+        setloading(false);
+        console.log(data.data.status);
         if (data.data.status == "success") {
           setIsLoggedIn("true");
           console.log(loggedin);
@@ -49,7 +56,8 @@ const Signin = () => {
         } else {
           Alert.alert("Error");
         }
-      });
+      })
+      .catch((err) => console.log(err.message));
   };
 
   const redirectOtp = () => {
@@ -212,7 +220,7 @@ const Signin = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      {view ? (
+      {/* {view ? (
         <View
           style={{
             width: "100%",
@@ -241,7 +249,7 @@ const Signin = () => {
         </View>
       ) : (
         ""
-      )}
+      )} */}
       <Pressable style={styles.sgn}>
         <Text style={[styles.sgntext, { color: "black" }]}>
           New to VideoCallingApp?{" "}
