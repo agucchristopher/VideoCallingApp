@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/core";
 import React, { useState, useEffect } from "react";
 import {
   View,
-  TextInput,
+  // TextInput,
   StyleSheet,
   Pressable,
   Text,
@@ -41,23 +41,26 @@ const Signin = () => {
 
   const Signinfn = async () => {
     setloading(true);
-    await axios
-      .post("http://192.168.43.30:19000/users/signin", {
-        username: Username,
-        password: Password,
-      })
-      .then((data) => {
-        setloading(false);
-        console.log(data.data.status);
-        if (data.data.status == "success") {
-          setIsLoggedIn("true");
-          console.log(loggedin);
-          redirectOtp();
-        } else {
-          Alert.alert("Error");
-        }
-      })
-      .catch((err) => console.log(err.message));
+    let headersList = {
+      Accept: "*/*",
+      "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+      "Content-Type": "application/json",
+    };
+
+    let bodyContent = JSON.stringify({
+      username: Username,
+      password: Password,
+    });
+
+    let reqOptions = {
+      url: "http://192.168.43.30:8080/users/signin",
+      method: "POST",
+      headers: headersList,
+      data: bodyContent,
+    };
+
+    let response = await axios.request(reqOptions);
+    console.log(response.data);
   };
 
   const redirectOtp = () => {
@@ -68,17 +71,27 @@ const Signin = () => {
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
       <Text style={styles.title}>Sign In</Text>
-      <Text style={styles.subtitle}>Sign Into Your Account</Text>
-      <Text style={styles.subtitle}>And Connect With People 🚀🚀</Text>
+      <Text style={styles.subtitle}>
+        Sign Into Your Account, And Connect With People 🚀🚀
+      </Text>
+      <Text style={styles.subtitle}></Text>
+      {/* <TextInput
+        mode="outlined"
+        label={"Username / Email"}
+        outlineColor="black"
+        activeOutlineColor="black"
+        // outlineStyle={{ borderRadius: 0 }}
+    
+        onFocus={() => setview(false)}
+        onBlur={() => setview(true)}
+      /> */}
       <Input
         value={Username}
+        placeholder={"Username / Email"}
+        style={{ marginLeft: 0 }}
         onChangeText={(text) => {
           setUsername(text);
         }}
-        onFocus={() => setview(false)}
-        onBlur={() => setview(true)}
-        placeholder={"Username / Email"}
-        style={{ marginLeft: 0 }}
       />
       <Input
         dropdown={true}
@@ -91,7 +104,10 @@ const Signin = () => {
         placeholder={"Password"}
         type={"password"}
       />
-      <Pressable style={styles.forgot}>
+      <Pressable
+        style={styles.forgot}
+        onPress={() => navigation.navigate("Fpass")}
+      >
         <Text style={styles.forgottext}>Forgot Password?</Text>
       </Pressable>
       <Button
@@ -99,8 +115,19 @@ const Signin = () => {
           !loading ? Signinfn() : "";
         }}
         loading={loading}
-        title={"Continue"}
+        title={"Sign In"}
       />
+      <Pressable style={styles.sgn}>
+        <Text style={[styles.sgntext, { color: "black" }]}>
+          New to VideoCallingApp?{" "}
+          <Text
+            onPress={() => navigation.navigate("InputDetails")}
+            style={[styles.sgntext, { margin: 0 }]}
+          >
+            Register
+          </Text>
+        </Text>
+      </Pressable>
       <View
         style={{
           margin: 10,
@@ -250,17 +277,6 @@ const Signin = () => {
       ) : (
         ""
       )} */}
-      <Pressable style={styles.sgn}>
-        <Text style={[styles.sgntext, { color: "black" }]}>
-          New to VideoCallingApp?{" "}
-          <Text
-            onPress={() => navigation.navigate("InputDetails")}
-            style={[styles.sgntext, { margin: 0 }]}
-          >
-            Register
-          </Text>
-        </Text>
-      </Pressable>
     </ScrollView>
   );
 };
@@ -310,6 +326,7 @@ const styles = StyleSheet.create({
   },
   sgn: {
     width: "100%",
+    marginTop: 10,
   },
   sgntext: {
     // alignContent: "center",

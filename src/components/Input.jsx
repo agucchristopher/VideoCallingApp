@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import React, { useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { TextInput } from "react-native-paper";
+import { Ionicons } from "react-native-vector-icons";
 import DropDownPicker from "react-native-dropdown-picker";
 const Input = ({
   value,
@@ -16,51 +17,78 @@ const Input = ({
   AutoCapitalize,
   dropdown,
   type,
+  error,
 }) => {
   const [focused, setfocused] = useState(false);
   const [open, setopen] = useState(true);
   return (
-    <View style={[styles.root, style]}>
+    // <View style={[styles.root, style]}>
+    //   <Text style={styles.placeholder}>{placeholder}</Text>
+    //   <Pressable style={styles.container}>
+    //     {type == "" ||
+    //       (type != "dropdown" ? (
+    //         <TextInput
+    //           value={value}
+    //           onChangeText={onChangeText}
+    //           style={[
+    //             styles.input,
+    //             { width: type == "password" ? "85%" : "95%" },
+    //           ]}
+    //           autoCapitalize="none"
+    //           secureTextEntry={type == "password" && open}
+    //           onBlur={onBlur}
+    //           onFocus={onFocus}
+    //           keyboardType={keyboardType}
+    //         />
+    //       ) : (
+    //         <Text style={styles.dropdowntext}>{"Nigeria"}</Text>
+    //       ))}
+    //     {type == "password" ? (
+    //       <Ionicons
+    //         name={open ? "eye" : "eye-off"}
+    //         size={26}
+    //         style={{ marginRight: 3 }}
+    //         color="#121212"
+    //         onPress={() => setopen(!open)}
+    //       />
+    //     ) : type == "dropdown" ? (
+    //       <Ionicons
+    //         name={open ? "caret-down" : "caret-down"}
+    //         size={26}
+    //         style={{ marginRight: 0 }}
+    //         color="#121212"
+    //         onPress={() => setopen(!open)}
+    //       />
+    //     ) : (
+    //       ""
+    //     )}
+    //   </Pressable>
+    // </View>
+    <View style={styles.container}>
       <Text style={styles.placeholder}>{placeholder}</Text>
-      <Pressable style={styles.container}>
-        {type == "" ||
-          (type != "dropdown" ? (
-            <TextInput
-              value={value}
-              onChangeText={onChangeText}
-              style={[
-                styles.input,
-                { width: type == "password" ? "85%" : "95%" },
-              ]}
-              autoCapitalize="none"
-              secureTextEntry={type == "password" && open}
-              onBlur={onBlur}
-              onFocus={onFocus}
-              keyboardType={keyboardType}
+      <TextInput
+        mode="outlined"
+        // label={placeholder}
+        secureTextEntry={type == "password" ? open : false}
+        outlineColor="black"
+        activeOutlineColor="black"
+        right={
+          <Pressable>
+            <Ionicons
+              name={open ? "eye" : "eye-off"}
+              size={26}
+              style={{ marginRight: 3, zIndex: 1000 }}
+              color="black"
+              onPress={() => setopen(!open)}
             />
-          ) : (
-            <Text style={styles.dropdowntext}>{"Nigeria"}</Text>
-          ))}
-        {type == "password" ? (
-          <Ionicons
-            name={open ? "eye" : "eye-off"}
-            size={26}
-            style={{ marginRight: 3 }}
-            color="#121212"
-            onPress={() => setopen(!open)}
-          />
-        ) : type == "dropdown" ? (
-          <Ionicons
-            name={open ? "caret-down" : "caret-down"}
-            size={26}
-            style={{ marginRight: 0 }}
-            color="#121212"
-            onPress={() => setopen(!open)}
-          />
-        ) : (
-          ""
-        )}
-      </Pressable>
+          </Pressable>
+        }
+        error={error}
+        outlineStyle={{ borderRadius: 25 }}
+        onChangeText={onChangeText}
+        // onFocus={() => setview(false)}
+        // onBlur={() => setview(true)}
+      />
     </View>
   );
 };
@@ -108,20 +136,20 @@ onPress={() => navigation.navigate("Glogin")}
 }
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    minHeight: 50,
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    width: "95%",
+    // flexDirection: "row",
+    // minHeight: 50,
+    // alignItems: "center",
+    // justifyContent: "space-evenly",
+    width: "99%",
     paddingHorizontal: 10,
-    borderColor: "#1d1d1d",
+    // borderColor: "#1d1d1d",
     alignSelf: "center",
     marginBottom: 3,
-    elevation: 2,
-    marginTop: 0,
-    borderWidth: 1.4,
-    borderRadius: 30,
-    margin: 0,
+    // elevation: 2,
+    // marginTop: 0,
+    // borderWidth: 1.4,
+    // borderRadius: 30,
+    // margin: 0,
   },
   input: {
     color: "#2c2c2c",
@@ -141,7 +169,7 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     // alignSelf: "center",
-    marginLeft: "8%",
+    marginLeft: 15,
     fontFamily: "NotoSans-Medium",
     fontSize: 15,
   },

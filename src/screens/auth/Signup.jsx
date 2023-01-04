@@ -105,7 +105,7 @@ const Signup = () => {
         // visible={true}
         animationType="slide"
       ></Modal> */}
-      {view ? (
+      {/* {view ? (
         <View
           style={{
             width: "100%",
@@ -134,7 +134,7 @@ const Signup = () => {
         </View>
       ) : (
         ""
-      )}
+      )} */}
       <Pressable style={styles.sgn}>
         <Text style={[styles.sgntext, { color: "black" }]}>
           Already A User?{" "}
