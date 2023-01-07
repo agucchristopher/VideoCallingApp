@@ -20,14 +20,24 @@ const Home = () => {
     await AsyncStorage.removeItem("user");
     navigation.navigate("Signin");
   };
+  const checkUser = async () => {
+    const data = await AsyncStorage.getItem("user");
+    console.warn("data", data);
+    setuser(data);
+    console.warn(user._id);
+    if (!user._id) {
+      navigation.navigate("Signin");
+    }
+    // return data;
+  };
   const getUser = async () => {
     let users = await AsyncStorage.getItem("user");
     setuser(users);
     console.log(user);
-    navigation.navigate("Signin");
+    // navigation.navigate("Signin");
   };
   useEffect(() => {
-    getUser();
+    checkUser();
   }, []);
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);

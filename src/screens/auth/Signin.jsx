@@ -31,22 +31,28 @@ const Signin = () => {
   const [Username, setUsername] = useState("");
   const [message, setmessage] = useState();
   const [type, settype] = useState();
+  const [user, setuser] = useState();
   const [loading, setloading] = useState(false);
   const [view, setview] = useState(true);
   const navigation = useNavigation();
 
   const checkUser = async () => {
     const data = await AsyncStorage.getItem("user");
-    return data;
-  };
-  const setUser = (user) => {
-    AsyncStorage.setItem("user", JSON.stringify(user));
-  };
-  const loggedin = checkUser();
-  useEffect(() => {
-    if (loggedin != null) {
+    console.log("data", data);
+    setuser(JSON.parse(data));
+    console.warn(user._id);
+    if (user._id) {
       navigation.navigate("Home");
     }
+    // return data;
+  };
+
+  const setUser = async (user) => {
+    await AsyncStorage.setItem("user", JSON.stringify(user));
+  };
+  // useEffect(checkUser, []);
+  useEffect(() => {
+    checkUser();
     setloading(false);
   }, []);
 
@@ -82,6 +88,7 @@ const Signin = () => {
       setUser(data.user);
     }
     setloading(false);
+    redirectOtp();
   };
 
   const redirectOtp = () => {
