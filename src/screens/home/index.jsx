@@ -1,5 +1,5 @@
 import { StatusBar, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Animated, {
   useAnimatedGestureHandler,
   useAnimatedStyle,
@@ -9,8 +9,26 @@ import {
   GestureHandlerRootView,
   PanGestureHandler,
 } from "react-native-gesture-handler";
+import { Button } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
+  const [user, setuser] = useState();
+  const navigation = useNavigation();
+  const logout = async () => {
+    await AsyncStorage.removeItem("user");
+    navigation.navigate("Signin");
+  };
+  const getUser = async () => {
+    let users = await AsyncStorage.getItem("user");
+    setuser(users);
+    console.log(user);
+    navigation.navigate("Signin");
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const gesture = useAnimatedGestureHandler(
@@ -47,6 +65,7 @@ const Home = () => {
       <PanGestureHandler onGestureEvent={gesture}>
         <Animated.View style={[styles.box, animatedStyle]} />
       </PanGestureHandler>
+      <Button onPress={logout}>Logout</Button>
     </GestureHandlerRootView>
   );
 };

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Video Calling App",
-    "slug": "Video Calling App",
+    "slug": "video-call-app",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -14,7 +14,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -27,6 +29,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "40e2cba9-cd67-41b4-8eb0-2462e436e542"
+      }
+    },
+    "owner": "devkay"
   }
 }

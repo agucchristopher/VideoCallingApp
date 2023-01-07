@@ -16,6 +16,7 @@ import {
   Keyboard,
   Dimensions,
   Image,
+  Platform,
 } from "react-native";
 import { AuthHeader, Button, Input } from "../../components";
 import facebook from "../../../assets/images/facebook.jpg";
@@ -23,24 +24,35 @@ import google from "../../../assets/images/google.jpg";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import sms from "expo-sms";
-import { TextInput } from "react-native-paper";
-import { useLoginContext } from "../../contexts/LoggedIn";
+import { Snackbar, TextInput } from "react-native-paper";
+
 const Signin = () => {
   const [Password, setPassword] = useState("");
   const [Username, setUsername] = useState("");
+  const [message, setmessage] = useState();
+  const [type, settype] = useState();
   const [loading, setloading] = useState(false);
-  const navigation = useNavigation();
   const [view, setview] = useState(true);
-  const { loggedin, setIsLoggedIn } = useLoginContext();
-  console.log(loggedin);
-  // loggedin == "true" ? navigation.navigate("Home") : "";
+  const navigation = useNavigation();
+
+  const checkUser = async () => {
+    const data = await AsyncStorage.getItem("user");
+    return data;
+  };
+  const setUser = (user) => {
+    AsyncStorage.setItem("user", JSON.stringify(user));
+  };
+  const loggedin = checkUser();
   useEffect(() => {
-    console.log(loggedin);
+    if (loggedin != null) {
+      navigation.navigate("Home");
+    }
     setloading(false);
   }, []);
 
   const Signinfn = async () => {
     setloading(true);
+
     let headersList = {
       Accept: "*/*",
       "User-Agent": "Thunder Client (https://www.thunderclient.com)",
@@ -52,15 +64,24 @@ const Signin = () => {
       password: Password,
     });
 
-    let reqOptions = {
-      url: "http://192.168.43.30:8080/users/signin",
+    let response = await fetch("http://192.168.43.30:8080/users/signin", {
       method: "POST",
+      body: bodyContent,
       headers: headersList,
-      data: bodyContent,
-    };
+    });
 
-    let response = await axios.request(reqOptions);
-    console.log(response.data);
+    let data = await response.text();
+    console.log(data);
+    data = JSON.parse(data);
+    Alert.alert(data.status, data.message);
+    let status = data.status;
+    let msg = data.message;
+    setmessage(data.message);
+    settype(data.status);
+    if (type !== "error") {
+      setUser(data.user);
+    }
+    setloading(false);
   };
 
   const redirectOtp = () => {
@@ -70,6 +91,30 @@ const Signin = () => {
 
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
+      {message && (
+        <View
+          style={{
+            // zIndex: 1000,
+            // top: 0,
+            // position: "absolute",
+            height: 50,
+            backgroundColor: type == "error" ? "red" : "green",
+            marginTop: StatusBar.currentHeight,
+            alignContent: "center",
+            padding: 5,
+          }}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontFamily: "NotoSans-Bold",
+              fontSize: 15,
+            }}
+          >
+            {message}
+          </Text>
+        </View>
+      )}
       <Text style={styles.title}>Sign In</Text>
       <Text style={styles.subtitle}>
         Sign Into Your Account, And Connect With People 🚀🚀
@@ -247,36 +292,6 @@ const Signin = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      {/* {view ? (
-        <View
-          style={{
-            width: "100%",
-            top: 0,
-            marginBottom: 0,
-          }}
-        >
-          <Text
-            numberOfLines={3}
-            style={{
-              color: "grey",
-              fontFamily: "NotoSans-Medium",
-              margin: 5,
-              letterSpacing: 1,
-            }}
-          >
-            If you are creating a new account{" "}
-            <Text style={{ textDecorationLine: "underline" }}>
-              Terms And Conditons
-            </Text>{" "}
-            and{" "}
-            <Text style={{ textDecorationLine: "underline" }}>
-              Privacy Policy will apply.
-            </Text>
-          </Text>
-        </View>
-      ) : (
-        ""
-      )} */}
     </ScrollView>
   );
 };
@@ -293,7 +308,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   title: {
-    marginTop: 15,
+    marginTop: Platform.OS == "ios" ? 50 : 20,
     fontFamily: "NotoSans-Bold",
     fontSize: 20,
     alignSelf: "flex-start",

@@ -5,10 +5,14 @@ const LoginContext = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [loggedin, setloggedin] = useState(false);
-  AsyncStorage.getItem("IsLoggedIn").then((value) => setloggedin(value));
-  const setIsLoggedIn = (e) => {
+  const getUser = async () => {
+    const data = await AsyncStorage.getItem("IsLoggedIn");
+    setloggedin(data);
+  };
+  getUser();
+  const setIsLoggedIn = (user) => {
     //   setCurrentMode(e.target.value);
-    AsyncStorage.setItem("IsLoggedIn", e.target.value);
+    AsyncStorage.setItem("IsLoggedIn", JSON.stringify(user));
   };
 
   return (
