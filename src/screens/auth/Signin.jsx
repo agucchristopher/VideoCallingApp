@@ -2,18 +2,13 @@ import { useNavigation } from "@react-navigation/core";
 import React, { useState, useEffect } from "react";
 import {
   View,
-  // TextInput,
   StyleSheet,
   Pressable,
   Text,
   Alert,
   TouchableOpacity,
   StatusBar,
-  ImageBackground,
-  SafeAreaView,
-  Linking,
   ScrollView,
-  Keyboard,
   Dimensions,
   Image,
   Platform,
@@ -24,7 +19,9 @@ import google from "../../../assets/images/google.jpg";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import sms from "expo-sms";
-import { Snackbar, TextInput } from "react-native-paper";
+import { Dialog, Modal, Snackbar, TextInput } from "react-native-paper";
+import { signin } from "../../services";
+import Notification from "../../components/Notification";
 
 const Signin = () => {
   const [Password, setPassword] = useState("");
@@ -39,18 +36,20 @@ const Signin = () => {
   const checkUser = async () => {
     const data = await AsyncStorage.getItem("user");
     console.log("data", data);
-    setuser(JSON.parse(data));
+    user != null && setuser(JSON.parse(data));
     console.warn(user._id);
     if (user._id) {
       navigation.navigate("Home");
     }
-    // return data;
   };
 
   const setUser = async (user) => {
-    await AsyncStorage.setItem("user", JSON.stringify(user));
+    let save = AsyncStorage.setItem("user", JSON.stringify(user));
+    await save;
+    console.log(save);
+    navigation.navigate("Home");
   };
-  // useEffect(checkUser, []);
+
   useEffect(() => {
     checkUser();
     setloading(false);
@@ -58,28 +57,10 @@ const Signin = () => {
 
   const Signinfn = async () => {
     setloading(true);
-
-    let headersList = {
-      Accept: "*/*",
-      "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-      "Content-Type": "application/json",
-    };
-
-    let bodyContent = JSON.stringify({
-      username: Username,
-      password: Password,
-    });
-
-    let response = await fetch("http://192.168.43.30:8080/users/signin", {
-      method: "POST",
-      body: bodyContent,
-      headers: headersList,
-    });
-
-    let data = await response.text();
+    let data = await signin(Username, Password);
     console.log(data);
     data = JSON.parse(data);
-    Alert.alert(data.status, data.message);
+    console.log(data);
     let status = data.status;
     let msg = data.message;
     setmessage(data.message);
@@ -87,56 +68,21 @@ const Signin = () => {
     if (type !== "error") {
       setUser(data.user);
     }
-    setloading(false);
-    redirectOtp();
-  };
-
-  const redirectOtp = () => {
-    // navigation.navigate("Home");
+    setTimeout(() => {
+      setmessage();
+      settype();
+    }, 3500);
     setloading(false);
   };
 
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
-      {message && (
-        <View
-          style={{
-            // zIndex: 1000,
-            // top: 0,
-            // position: "absolute",
-            height: 50,
-            backgroundColor: type == "error" ? "red" : "green",
-            marginTop: StatusBar.currentHeight,
-            alignContent: "center",
-            padding: 5,
-          }}
-        >
-          <Text
-            style={{
-              color: "white",
-              fontFamily: "NotoSans-Bold",
-              fontSize: 15,
-            }}
-          >
-            {message}
-          </Text>
-        </View>
-      )}
+      {message && <Notification type={type} message={message} />}
       <Text style={styles.title}>Sign In</Text>
       <Text style={styles.subtitle}>
         Sign Into Your Account, And Connect With People 🚀🚀
       </Text>
       <Text style={styles.subtitle}></Text>
-      {/* <TextInput
-        mode="outlined"
-        label={"Username / Email"}
-        outlineColor="black"
-        activeOutlineColor="black"
-        // outlineStyle={{ borderRadius: 0 }}
-    
-        onFocus={() => setview(false)}
-        onBlur={() => setview(true)}
-      /> */}
       <Input
         value={Username}
         placeholder={"Username / Email"}
@@ -305,9 +251,7 @@ const Signin = () => {
 
 const styles = StyleSheet.create({
   page: {
-    // alignItems: 'stretch',
     flex: 1,
-    // marginTop: StatusBar.currentHeight,
     backgroundColor: "white",
     height: Dimensions.get("screen").height,
     alignContent: "center",
@@ -333,8 +277,6 @@ const styles = StyleSheet.create({
     marginLeft: 11,
   },
   forgottext: {
-    // alignContent: "center",
-    // justifyContent: "flex-end",
     fontFamily: "NotoSans-Medium",
     alignSelf: "flex-end",
     margin: 3,
@@ -342,8 +284,6 @@ const styles = StyleSheet.create({
     color: "#FF7955",
   },
   forgot: {
-    // alignContent: "flex-end",
-    // justifyContent: "flex-end",
     width: "100%",
   },
   sgn: {
@@ -351,8 +291,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   sgntext: {
-    // alignContent: "center",
-    // justifyContent: "flex-end",
     fontFamily: "NotoSans-Medium",
     alignSelf: "center",
     margin: 3,

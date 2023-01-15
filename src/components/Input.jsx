@@ -70,6 +70,7 @@ const Input = ({
         mode="outlined"
         // label={placeholder}
         secureTextEntry={type == "password" ? open : false}
+        keyboardType={keyboardType}
         outlineColor="black"
         activeOutlineColor="black"
         right={

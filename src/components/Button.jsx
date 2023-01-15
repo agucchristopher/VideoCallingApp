@@ -5,8 +5,9 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Pressable,
+  Platform,
 } from "react-native";
-import React from "react";
+import React, { memo } from "react";
 import { Button } from "react-native-paper";
 
 const CustomButton = ({ title, color, loading, onPress }) => {
@@ -14,10 +15,9 @@ const CustomButton = ({ title, color, loading, onPress }) => {
     return (
       <TouchableOpacity onPress={onPress}>
         <Button
-          mode="contained"
-          // onPress={onPress}
+          mode="elevated"
           style={{
-            width: "100%",
+            width: Platform.OS == "ios" ? "100%" : "80%",
             alignSelf: "center",
             backgroundColor: "#FF7955",
             marginTop: 10,
@@ -25,6 +25,7 @@ const CustomButton = ({ title, color, loading, onPress }) => {
             borderRadius: 45,
             alignContent: "center",
             justifyContent: "center",
+            backgroundColor: !loading ? "#FF7955" : "darkgrey",
           }}
         >
           <Text
@@ -43,28 +44,35 @@ const CustomButton = ({ title, color, loading, onPress }) => {
     );
   }
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity
+      style={[
+        styles.button,
+        {
+          backgroundColor: loading ? "#FF7955" : "darkgrey",
+          width: Platform.OS == "ios" ? "100%" : "80%",
+        },
+      ]}
+      onPress={onPress}
+    >
       <ActivityIndicator color={"white"} size="large" />
     </TouchableOpacity>
   );
 };
 
-export default CustomButton;
+export default memo(CustomButton);
 
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "#FF7955",
-    padding: 10,
-    marginVertical: 10,
+    padding: 6,
+    marginVertical: 6,
     borderRadius: 30,
     alignItems: "center",
-    minHeight: 40,
     color: "white",
     width: "100%",
     alignSelf: "center",
     elevation: 2,
     marginTop: 10,
     justifyContent: "center",
-    // marginBottom: 5,
   },
 });

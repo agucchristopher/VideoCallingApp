@@ -15,6 +15,7 @@ import {
   MD3LightTheme as DefaultTheme,
   Provider as PaperProvider,
 } from "react-native-paper";
+// import TestApp from "./src/screens/call/test";
 
 const App = () => {
   const [fontsloaded] = useFonts({
@@ -50,6 +51,7 @@ const App = () => {
         <Stack />
       </ContextProvider>
     </PaperProvider>
+    // <TestApp />
   );
 };
 

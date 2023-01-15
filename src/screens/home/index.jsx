@@ -16,16 +16,13 @@ import { useNavigation } from "@react-navigation/native";
 const Home = () => {
   const [user, setuser] = useState();
   const navigation = useNavigation();
-  const logout = async () => {
-    await AsyncStorage.removeItem("user");
-    navigation.navigate("Signin");
-  };
+
   const checkUser = async () => {
     const data = await AsyncStorage.getItem("user");
-    console.warn("data", data);
+    console.warn("data", JSON.parse(data._id));
     setuser(data);
     console.warn(user._id);
-    if (!user._id) {
+    if (user._id == null) {
       navigation.navigate("Signin");
     }
     // return data;
@@ -36,6 +33,15 @@ const Home = () => {
     console.log(user);
     // navigation.navigate("Signin");
   };
+  const logout = async () => {
+    await AsyncStorage.removeItem("user");
+    // navigation.navigate("Signin");
+    checkUser();
+  };
+  function showUsername() {
+    getUser();
+    return JSON.parse(user);
+  }
   useEffect(() => {
     checkUser();
   }, []);
@@ -75,6 +81,7 @@ const Home = () => {
       <PanGestureHandler onGestureEvent={gesture}>
         <Animated.View style={[styles.box, animatedStyle]} />
       </PanGestureHandler>
+      <Button>{showUsername()}</Button>
       <Button onPress={logout}>Logout</Button>
     </GestureHandlerRootView>
   );
