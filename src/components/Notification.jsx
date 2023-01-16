@@ -4,6 +4,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withTiming,
 } from "react-native-reanimated";
 
 const Notification = (props) => {
@@ -12,7 +13,7 @@ const Notification = (props) => {
 
   let rstyle = useAnimatedStyle(() => {
     return {
-      height: withSpring(50),
+      height: withTiming(50, { duration: 2000 }),
     };
   });
   return (
@@ -34,7 +35,6 @@ const Notification = (props) => {
           style={[
             {
               width: 300,
-              height: 50,
               position: "absolute",
               zIndex: 1000000,
               backgroundColor: type == "error" ? "red" : "green",

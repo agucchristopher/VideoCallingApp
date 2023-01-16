@@ -12,7 +12,9 @@ import { useFonts } from "expo-font";
 import { Home } from "./src/screens";
 import { ContextProvider } from "./src/contexts/LoggedIn";
 import {
+  MD3DarkTheme,
   MD3LightTheme as DefaultTheme,
+  MD3LightTheme,
   Provider as PaperProvider,
 } from "react-native-paper";
 // import TestApp from "./src/screens/call/test";

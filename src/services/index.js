@@ -1,5 +1,6 @@
 import axios from "axios";
 
+let BaseURL = "http://192.168.43.30:8080";
 export const signin = async (username, password) => {
   let headersList = {
     Accept: "*/*",
@@ -11,7 +12,7 @@ export const signin = async (username, password) => {
     password,
   });
 
-  let response = await fetch("http://192.168.43.30:8080/users/signin", {
+  let response = await fetch(`${BaseURL}/users/signin`, {
     method: "POST",
     body: bodyContent,
     headers: headersList,

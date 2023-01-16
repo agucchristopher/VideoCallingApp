@@ -4,6 +4,8 @@ import Animated, {
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
+  withSpring,
+  withTiming,
 } from "react-native-reanimated";
 import {
   GestureHandlerRootView,
@@ -18,32 +20,33 @@ const Home = () => {
   const navigation = useNavigation();
 
   const checkUser = async () => {
-    const data = await AsyncStorage.getItem("user");
-    console.warn("data", JSON.parse(data._id));
+    let data = await AsyncStorage.getItem("user");
+    data = JSON.parse(data);
+    console.log(data?.username);
     setuser(data);
-    console.warn(user._id);
-    if (user._id == null) {
+    if (!data) {
       navigation.navigate("Signin");
     }
-    // return data;
   };
   const getUser = async () => {
     let users = await AsyncStorage.getItem("user");
     setuser(users);
-    console.log(user);
-    // navigation.navigate("Signin");
+    let data = user;
+    return data;
   };
   const logout = async () => {
     await AsyncStorage.removeItem("user");
-    // navigation.navigate("Signin");
+    setuser(null);
     checkUser();
   };
   function showUsername() {
-    getUser();
-    return JSON.parse(user);
+    let username = user;
+    return user?.username;
   }
   useEffect(() => {
     checkUser();
+    // let username = JSON.parse(user);
+    // console.log(username);
   }, []);
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
@@ -53,7 +56,6 @@ const Home = () => {
       onActive: (event) => {
         translateX.value = event.translationX;
         translateY.value = event.translationY;
-        // console.log(event.translationX);
       },
       onEnd: () => {
         // translateY.value = 0;
@@ -72,6 +74,9 @@ const Home = () => {
         },
         {
           translateX: translateX.value,
+        },
+        {
+          scale: withSpring(1),
         },
       ],
     };

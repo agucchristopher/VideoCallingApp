@@ -34,13 +34,15 @@ const Signin = () => {
   const navigation = useNavigation();
 
   const checkUser = async () => {
-    const data = await AsyncStorage.getItem("user");
-    console.log("data", data);
-    user != null && setuser(JSON.parse(data));
-    console.warn(user._id);
-    if (user._id) {
+    let data = await AsyncStorage.getItem("user");
+    data = JSON.parse(data);
+    setuser(data);
+    console.warn(data.username);
+    if (data._id != null) {
+      console.log("user exists");
       navigation.navigate("Home");
     }
+    // return data;
   };
 
   const setUser = async (user) => {
