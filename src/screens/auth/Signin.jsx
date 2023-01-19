@@ -61,7 +61,7 @@ const Signin = () => {
     setloading(true);
     let data = await signin(Username, Password);
     console.log(data);
-    data = JSON.parse(data);
+    // data = JSON.stringify(data);
     console.log(data);
     let status = data.status;
     let msg = data.message;

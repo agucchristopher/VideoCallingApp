@@ -46,7 +46,7 @@ export const signup = async (
     password,
   });
 
-  let response = await fetch("http://localhost:8080/users/signup", {
+  let response = await fetch(`${BaseURL}/users/signup`, {
     method: "POST",
     body: bodyContent,
     headers: headersList,

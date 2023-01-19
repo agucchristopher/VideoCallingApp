@@ -6,10 +6,15 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Input } from "../../components";
 
 const ForgotPassword = () => {
+  const [loading, setloading] = useState(false);
+  const [email, setemail] = useState();
+  const forgotpasswordfn = () => {
+    setloading(true);
+  };
   return (
     <ScrollView style={styles.page}>
       <Text style={styles.title}>Forgot Password?</Text>
@@ -17,8 +22,15 @@ const ForgotPassword = () => {
         Continue The Steps And Recover Your Account 🚀🚀
       </Text>
       <Text style={styles.subtitle}></Text>
-      <Input placeholder={"Email Address"} keyboardType={"email-address"} />
-      <Button title={"Recover Password"} loading={true} />
+      <Input
+        value={email}
+        onChangeText={(value) => {
+          setemail(value);
+        }}
+        placeholder={"Email Address"}
+        keyboardType={"email-address"}
+      />
+      <Button title={"Recover Password"} loading={loading} />
     </ScrollView>
   );
 };
@@ -27,9 +39,7 @@ export default ForgotPassword;
 
 const styles = StyleSheet.create({
   page: {
-    // alignItems: 'stretch',
     flex: 1,
-    // marginTop: StatusBar.currentHeight,
     backgroundColor: "white",
     height: Dimensions.get("screen").height,
     alignContent: "center",

@@ -84,6 +84,7 @@ const Input = ({
             />
           </Pressable>
         }
+        value={value}
         error={error}
         outlineStyle={{ borderRadius: 25 }}
         onChangeText={onChangeText}
