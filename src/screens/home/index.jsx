@@ -45,23 +45,30 @@ const Home = () => {
   }
   useEffect(() => {
     checkUser();
-    // let username = JSON.parse(user);
-    // console.log(username);
   }, []);
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
+  const contextX = useSharedValue(0);
+  const contextY = useSharedValue(0);
+  const scale = useSharedValue(1);
+  let value = 1;
+  useEffect(() => {
+    value = scale.value == 1 ? 2 : 1;
+  }, []);
+
   const gesture = useAnimatedGestureHandler(
     {
-      onStart: (event) => {},
-      onActive: (event) => {
-        translateX.value = event.translationX;
-        translateY.value = event.translationY;
+      onStart: (event) => {
+        contextX.value = event.translationX;
+        contextX.value = event.translationY;
       },
-      onEnd: () => {
-        // translateY.value = 0;
-        if (translateX.value == -21) {
-          translateX.value = 0;
-        }
+      onActive: (event) => {
+        translateX.value = contextX.value + event.translationX;
+        translateY.value = contextY.value + event.translationY;
+      },
+      onEnd: (event) => {
+        contextX.value = event.translationX;
+        contextX.value = event.translationY;
       },
     },
     []
@@ -76,7 +83,7 @@ const Home = () => {
           translateX: translateX.value,
         },
         {
-          scale: withSpring(1),
+          scale: withSpring(value),
         },
       ],
     };

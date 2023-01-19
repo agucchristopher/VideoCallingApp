@@ -4,7 +4,6 @@ let BaseURL = "http://192.168.43.30:8080";
 export const signin = async (username, password) => {
   let headersList = {
     Accept: "*/*",
-    "User-Agent": "Thunder Client (https://www.thunderclient.com)",
     "Content-Type": "application/json",
   };
   let bodyContent = JSON.stringify({
@@ -20,4 +19,39 @@ export const signin = async (username, password) => {
 
   let data = await response.text();
   return data;
+};
+
+export const signup = async (
+  username,
+  password,
+  first_name,
+  last_name,
+  email,
+  country,
+  gender
+) => {
+  let headersList = {
+    Accept: "*/*",
+    "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+    "Content-Type": "application/json",
+  };
+
+  let bodyContent = JSON.stringify({
+    first_name,
+    last_name,
+    email,
+    username,
+    country,
+    gender,
+    password,
+  });
+
+  let response = await fetch("http://localhost:8080/users/signup", {
+    method: "POST",
+    body: bodyContent,
+    headers: headersList,
+  });
+
+  let data = await response.text();
+  console.log(data);
 };

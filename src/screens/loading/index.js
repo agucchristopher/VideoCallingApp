@@ -19,10 +19,10 @@ const Loading = () => {
     console.warn(data);
     if (data) {
       console.log("user exists");
-      navigation.navigate("Home");
+      navigation.replace("Home");
     } else {
       console.log("user exists");
-      navigation.navigate("Signin");
+      navigation.replace("Signin");
     }
   };
   useEffect(() => {

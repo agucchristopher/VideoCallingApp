@@ -40,7 +40,7 @@ const Signin = () => {
     console.warn(data.username);
     if (data._id != null) {
       console.log("user exists");
-      navigation.navigate("Home");
+      navigation.replace("Home");
     }
     // return data;
   };
