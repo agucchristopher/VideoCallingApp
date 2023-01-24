@@ -21,7 +21,7 @@ const Navigation = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Root" component={Loading} />
+        <Stack.Screen name="Loading" component={Loading} />
         <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Otp" component={Otp} />
         <Stack.Screen name="InputDetails" component={Signup} />

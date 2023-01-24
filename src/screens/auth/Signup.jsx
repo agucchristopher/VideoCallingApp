@@ -24,14 +24,18 @@ const Signup = () => {
   const [fname, setfname] = useState();
   const [lname, setlname] = useState();
   const [email, setemail] = useState();
-  const [gender, setgender] = useState();
+
   const [password, setpassword] = useState();
-  const [country, setcountry] = useState(second);
+
   const [pass2, setpass2] = useState();
   const [error, seterror] = useState(second);
   const [message, setmessage] = useState(second);
   const [type, settype] = useState(second);
   const [loading, setloading] = useState(second);
+  const [gendertext, setgendertext] = useState("Male");
+  const [countrytext, setcountrytext] = useState("Nigeria");
+  const [gender, setgender] = useState();
+  const [country, setcountry] = useState(second);
   useEffect(() => {
     setloading(false);
   }, []);
@@ -93,11 +97,14 @@ const Signup = () => {
         value={gender}
         onChangeText={(text) => setgender(text)}
         placeholder={"Gender"}
+        type="dropdown"
+        defaulttext={gendertext}
       />
       <Input
         value={country}
         onChangeText={(text) => setcountry(text)}
         type="dropdown"
+        defaulttext={countrytext}
         placeholder={"Country"}
       />
       <Input

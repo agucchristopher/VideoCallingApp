@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
 import { TextInput } from "react-native-paper";
 import { Ionicons } from "react-native-vector-icons";
@@ -18,52 +24,70 @@ const Input = ({
   dropdown,
   type,
   error,
+  defaulttext,
 }) => {
   const [focused, setfocused] = useState(false);
   const [open, setopen] = useState(true);
+  if (type == "dropdown") {
+    return (
+      <View style={[styles.root, style]}>
+        <Text style={styles.placeholder}>{placeholder}</Text>
+        <TouchableOpacity
+          style={[
+            styles.container,
+            {
+              flexDirection: "row",
+              borderRadius: 25,
+              borderWidth: 1,
+              paddingVertical: 10,
+              padding: 0,
+              alignItems: "center",
+              justifyContent: "space-between",
+            },
+          ]}
+        >
+          {type == "" ||
+            (type != "dropdown" ? (
+              <TextInput
+                value={value}
+                onChangeText={onChangeText}
+                style={[
+                  styles.input,
+                  { width: type == "password" ? "85%" : "95%" },
+                ]}
+                autoCapitalize="none"
+                secureTextEntry={type == "password" && open}
+                onBlur={onBlur}
+                onFocus={onFocus}
+                keyboardType={keyboardType}
+              />
+            ) : (
+              <Text style={styles.dropdowntext}>{defaulttext}</Text>
+            ))}
+          {type == "password" ? (
+            <Ionicons
+              name={open ? "eye" : "eye-off"}
+              size={26}
+              style={{ marginRight: 3 }}
+              color="#121212"
+              onPress={() => setopen(!open)}
+            />
+          ) : type == "dropdown" ? (
+            <Ionicons
+              name={open ? "caret-down" : "caret-down"}
+              size={26}
+              style={{ marginRight: 10 }}
+              color="#121212"
+              onPress={() => setopen(!open)}
+            />
+          ) : (
+            ""
+          )}
+        </TouchableOpacity>
+      </View>
+    );
+  }
   return (
-    // <View style={[styles.root, style]}>
-    //   <Text style={styles.placeholder}>{placeholder}</Text>
-    //   <Pressable style={styles.container}>
-    //     {type == "" ||
-    //       (type != "dropdown" ? (
-    //         <TextInput
-    //           value={value}
-    //           onChangeText={onChangeText}
-    //           style={[
-    //             styles.input,
-    //             { width: type == "password" ? "85%" : "95%" },
-    //           ]}
-    //           autoCapitalize="none"
-    //           secureTextEntry={type == "password" && open}
-    //           onBlur={onBlur}
-    //           onFocus={onFocus}
-    //           keyboardType={keyboardType}
-    //         />
-    //       ) : (
-    //         <Text style={styles.dropdowntext}>{"Nigeria"}</Text>
-    //       ))}
-    //     {type == "password" ? (
-    //       <Ionicons
-    //         name={open ? "eye" : "eye-off"}
-    //         size={26}
-    //         style={{ marginRight: 3 }}
-    //         color="#121212"
-    //         onPress={() => setopen(!open)}
-    //       />
-    //     ) : type == "dropdown" ? (
-    //       <Ionicons
-    //         name={open ? "caret-down" : "caret-down"}
-    //         size={26}
-    //         style={{ marginRight: 0 }}
-    //         color="#121212"
-    //         onPress={() => setopen(!open)}
-    //       />
-    //     ) : (
-    //       ""
-    //     )}
-    //   </Pressable>
-    // </View>
     <View style={styles.container}>
       <Text style={styles.placeholder}>{placeholder}</Text>
       <TextInput
@@ -143,7 +167,7 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     // justifyContent: "space-evenly",
     width: "99%",
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     // borderColor: "#1d1d1d",
     alignSelf: "center",
     marginBottom: 3,
@@ -179,12 +203,12 @@ const styles = StyleSheet.create({
     color: "#2c2c2c",
     fontSize: 14,
     fontFamily: "NotoSans-Bold",
-    marginLeft: 5,
+    marginLeft: 10,
     textDecorationColor: "white",
     borderColor: "white",
     // height: "100%",
     alignSelf: "center",
-    width: "80%",
+    // width: "90%",
     justifyContent: "center",
   },
 });

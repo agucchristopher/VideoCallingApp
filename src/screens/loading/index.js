@@ -14,6 +14,7 @@ const Loading = () => {
   const navigation = useNavigation();
   const checkUser = async () => {
     let data = await AsyncStorage.getItem("user");
+    console.log("index", data);
     data = JSON.parse(data);
     setuser(data);
     console.warn(data);

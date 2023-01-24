@@ -27,7 +27,7 @@ const Notification = (props) => {
           alignSelf: "center",
           justifyContent: "center",
           flex: 1,
-          borderRadius: 8,
+          borderRadius: 16,
           height: 50,
         }}
       >

@@ -72,16 +72,16 @@ const Signin = () => {
     if (type !== "error") {
       setUser(data.user);
     }
-    // setTimeout(() => {
-    //   setmessage();
-    //   settype();
-    // }, 350000);
+    setTimeout(() => {
+      setmessage();
+      settype();
+    }, 3500);
     setloading(false);
   };
 
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
-      {message != "" ? <Notification type={type} message={message} /> : null}
+      {message ? <Notification type={type} message={message} /> : null}
       <Text style={styles.title}>Welcome Back</Text>
       <Text style={styles.subtitle}>
         Sign Into Your Account, And Connect With People 🚀🚀
