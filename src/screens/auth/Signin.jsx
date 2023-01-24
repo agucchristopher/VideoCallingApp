@@ -48,8 +48,8 @@ const Signin = () => {
   const setUser = async (user) => {
     let save = AsyncStorage.setItem("user", JSON.stringify(user));
     await save;
-    console.log(save);
-    navigation.navigate("Home");
+    console.log("svae ", save);
+    navigation.navigate("Loading");
   };
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const Signin = () => {
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
       {message && <Notification type={type} message={message} />}
-      <Text style={styles.title}>Sign In</Text>
+      <Text style={styles.title}>Welcome Back</Text>
       <Text style={styles.subtitle}>
         Sign Into Your Account, And Connect With People 🚀🚀
       </Text>
