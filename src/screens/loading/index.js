@@ -17,12 +17,12 @@ const Loading = () => {
     data = JSON.parse(data);
     setuser(data);
     console.warn(data);
-    if (data) {
-      console.log("user exists");
-      navigation.replace("Home");
+    if (!data) {
+      console.log("user does not exists");
+      navigation.replace("Signin");
     } else {
       console.log("user exists");
-      navigation.replace("Signin");
+      navigation.replace("Home");
     }
   };
   useEffect(() => {

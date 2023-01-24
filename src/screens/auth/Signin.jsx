@@ -37,6 +37,7 @@ const Signin = () => {
     let data = await AsyncStorage.getItem("user");
     data = JSON.parse(data);
     setuser(data);
+    console.log("data", data);
     console.warn(data.username);
     if (data._id != null) {
       console.log("user exists");
@@ -61,25 +62,26 @@ const Signin = () => {
     setloading(true);
     let data = await signin(Username, Password);
     console.log(data);
-    // data = JSON.stringify(data);
+    data = JSON.parse(data);
     console.log(data);
     let status = data.status;
     let msg = data.message;
     setmessage(data.message);
     settype(data.status);
+    console.log("type", type);
     if (type !== "error") {
       setUser(data.user);
     }
-    setTimeout(() => {
-      setmessage();
-      settype();
-    }, 3500);
+    // setTimeout(() => {
+    //   setmessage();
+    //   settype();
+    // }, 350000);
     setloading(false);
   };
 
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
-      {message && <Notification type={type} message={message} />}
+      {message != "" ? <Notification type={type} message={message} /> : null}
       <Text style={styles.title}>Welcome Back</Text>
       <Text style={styles.subtitle}>
         Sign Into Your Account, And Connect With People 🚀🚀
@@ -222,6 +224,7 @@ const Signin = () => {
             alignContent: "center",
             alignSelf: "center",
           }}
+          onPress={() => navigation.navigate("Glogin")}
         >
           <Image
             source={google}
