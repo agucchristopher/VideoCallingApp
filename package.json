@@ -30,6 +30,7 @@
     "react-native": "0.70.5",
     "react-native-agora": "^4.1.1",
     "react-native-dropdown-picker": "^5.4.3",
+    "react-native-flash-message": "^0.4.0",
     "react-native-gesture-handler": "~2.8.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-paper": "^5.1.2",

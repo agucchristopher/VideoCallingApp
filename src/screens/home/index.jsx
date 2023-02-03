@@ -14,9 +14,23 @@ import {
 import { Button } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-
+import { Camera, CameraType } from "expo-camera";
 const Home = () => {
   const [user, setuser] = useState();
+  const [type, settype] = useState(CameraType.back);
+  const [permission, resquestPermission] = Camera.useCameraPermissions();
+
+  if (!permission) {
+    resquestPermission();
+  }
+  // if (!permission.granted) {
+  //   alert("Error");
+  // }
+  function toggleCamera(params) {
+    settype((current) =>
+      current == CameraType.back ? CameraType.front : CameraType.back
+    );
+  }
   const navigation = useNavigation();
 
   const checkUser = async () => {
@@ -86,6 +100,8 @@ const Home = () => {
           scale: withSpring(value),
         },
       ],
+      zIndex: 10000,
+      position: "absolute",
     };
   });
   return (
@@ -94,15 +110,20 @@ const Home = () => {
         backgroundColor: "white",
         flex: 1,
         // alignItems: "center",
-        justifyContent: "center",
+        // justifyContent: "center",
       }}
     >
       {/* <View> */}
+      <Camera
+        type={type}
+        style={{ width: 300, height: 400, alignSelf: "center" }}
+      />
       <PanGestureHandler onGestureEvent={gesture}>
         <Animated.View style={[styles.box, animatedStyle]} />
       </PanGestureHandler>
       <Button>{showUsername()}</Button>
       <Button onPress={logout}>Logout</Button>
+      <Button onPress={toggleCamera}>Toggle</Button>
       {/* </View> */}
     </GestureHandlerRootView>
   );

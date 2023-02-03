@@ -15,10 +15,9 @@ import { LinearGradient } from "expo-linear-gradient";
 const CustomButton = ({ title, color, loading, onPress }) => {
   if (!loading) {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <LinearGradient
-          onPress={onPress}
-          colors={["dodgerblue", "#0096C7"]}
+          colors={["dodgerblue", "#00d2ff"]}
           style={[
             styles.button,
             {
@@ -43,7 +42,7 @@ const CustomButton = ({ title, color, loading, onPress }) => {
   return (
     <TouchableOpacity>
       <LinearGradient
-        colors={["dodgerblue", "#0096C7"]}
+        colors={["#0096C7", "#00d2ff"]}
         style={[
           styles.button,
           {

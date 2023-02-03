@@ -8,16 +8,21 @@ import {
   View,
   Dimensions,
   Alert,
+  Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Back, Button, Input } from "../../components";
+// import FlashMessage, { showMessage } from "react-native-flash-message";
 import DropDownPicker from "react-native-dropdown-picker";
 import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
 import Notification from "../../components/Notification";
 import { signup } from "../../services";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import FlashMessage, { showMessage } from "react-native-flash-message";
+import { Searchbar } from "react-native-paper";
+
 const Signup = () => {
   const navigation = useNavigation();
   const second = null;
@@ -38,6 +43,26 @@ const Signup = () => {
   const [gender, setgender] = useState();
   const [country, setcountry] = useState("Nigeria");
   const [showcountries, setshowcountries] = useState(false);
+  const [countries, setcountries] = useState();
+  let flashref = useRef();
+
+  React.useEffect(() => {
+    // Fetch countires
+    fetch("https://restcountries.com/v2/all")
+      .then((response) => response.json())
+      .then((data) => {
+        let countryData = data.map((item) => {
+          return {
+            code: item.alpha2Code,
+            name: item.name,
+            callingCode: `+${item.callingCodes[0]}`,
+            flag: `https://countryflagsapi.com/png/${item.alpha2Code}`,
+          };
+        });
+
+        setcountries(countryData);
+      });
+  }, []);
   useEffect(() => {
     setloading(false);
   }, []);
@@ -59,25 +84,35 @@ const Signup = () => {
     let status = data.status;
     let msg = data.message;
     setmessage(data.message);
-    settype(data.status);
+    settype(status == "error" ? "danger" : "success");
+    console.log("type", type);
+    flashref.current.showMessage({
+      message: msg,
+      type: type,
+    });
     if (type !== "error") {
       redirectOtp();
     }
-    setTimeout(() => {
-      setmessage();
-      settype();
-    }, 3500);
+    // setTimeout(() => {
+    //   setmessage();
+    //   settype();
+    // }, 3500);
     setloading(false);
   };
 
   const redirectOtp = () => {
-    navigation.navigate("Otp", { mail: email });
-    setloading(false);
+    // navigation.navigate("Otp", { mail: email });
+    // setloading(false);
   };
+  useEffect(() => {
+    showMessage({
+      message: "jay jay",
+    });
+  }, []);
+
   const [view, setview] = useState(true);
   return (
     <ScrollView style={styles.page}>
-      {message && <Notification message={message} />}
       <Text style={styles.title}> Sign Up</Text>
       <Text style={styles.subtitle}>
         Continue to create a new account and connect with people 👌🚀
@@ -142,6 +177,7 @@ const Signup = () => {
           </Text>
         </Text>
       </Pressable>
+
       <Modal
         onRequestClose={() => setshowcountries(false)}
         transparent
@@ -164,10 +200,72 @@ const Signup = () => {
               borderRadius: 25,
             }}
           >
-            <FlatList />
+            <Searchbar
+              style={{
+                backgroundColor: "white",
+                borderTopLeftRadius: 25,
+                borderTopRightRadius: 25,
+                marginBottom: 10,
+              }}
+              onChangeText={({ text }) => {
+                let input = text;
+                let data = countries.filter((data) => data.includes(input));
+                console.log(data);
+                setcountries(data);
+              }}
+            />
+            <FlatList
+              data={countries}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: "row",
+                    height: 45,
+                    alignItems: "center",
+                    backgroundColor:
+                      countrytext.toLowerCase() == item.name
+                        ? "darkgrey"
+                        : "white",
+                    width: "80%",
+                    alignSelf: "center",
+                  }}
+                  onPress={(item) => alert(item.name)}
+                >
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image
+                      source={{ uri: item.flag }}
+                      resizeMode="cover"
+                      style={{
+                        width: 30,
+                        height: 30,
+                        borderRadius: 15,
+                        margin: 10,
+                        marginRight: 15,
+                      }}
+                    />
+                    <Text>{item.name}</Text>
+                  </TouchableOpacity>
+                </TouchableOpacity>
+              )}
+            />
           </View>
         </View>
       </Modal>
+      <View></View>
+      <FlashMessage
+        style={{
+          marginTop: Dimensions.get("screen").height * 0.28,
+        }}
+        ref={flashref}
+        type={type}
+        duration={3000}
+      />
     </ScrollView>
   );
 };
@@ -176,9 +274,7 @@ export default Signup;
 
 const styles = StyleSheet.create({
   page: {
-    // alignItems: 'stretch',
     flex: 1,
-    // marginTop: StatusBar.currentHeight,
     backgroundColor: "white",
     height: Dimensions.get("screen").height,
     alignContent: "center",

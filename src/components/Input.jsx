@@ -25,7 +25,7 @@ const Input = ({
   type,
   error,
   defaulttext,
-  modal
+  modal,
 }) => {
   const [focused, setfocused] = useState(false);
   const [open, setopen] = useState(true);
@@ -123,45 +123,6 @@ const Input = ({
 
 export default Input;
 
-{
-  /* <TouchableOpacity
-style={{
-  borderColor: "grey",
-  borderWidth: 1.4,
-  borderRadius: 25,
-  margin: 6,
-  height: 50,
-  flexDirection: "row",
-  justifyContent: "space-evenly",
-  alignContent: "center",
-  alignSelf: "center",
-}}
-onPress={() => navigation.navigate("Glogin")}
->
-<Image
-  source={facebook}
-  resizeMode={"contain"}
-  style={{
-    width: 30,
-    height: 50,
-    marginLeft: 8,
-    marginRight: 8,
-    justifyContent: "center",
-  }}
-/>
-<Text
-  style={{
-    color: "grey",
-    fontSize: 15,
-    width: "80%",
-    fontFamily: "NotoSans-Medium",
-    alignSelf: "center",
-  }}
->
-  Sign In With Facebook
-</Text>
-</TouchableOpacity> */
-}
 const styles = StyleSheet.create({
   container: {
     // flexDirection: "row",

@@ -14,6 +14,7 @@ import {
   Platform,
 } from "react-native";
 import { AuthHeader, Button, Input } from "../../components";
+import FlashMessage, { showMessage } from "react-native-flash-message";
 import facebook from "../../../assets/images/facebook.jpg";
 import google from "../../../assets/images/google.jpg";
 import axios from "axios";
@@ -21,7 +22,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import sms from "expo-sms";
 import { Dialog, Modal, Snackbar, TextInput } from "react-native-paper";
 import { signin } from "../../services";
-import Notification from "../../components/Notification";
 
 const Signin = () => {
   const [Password, setPassword] = useState("");
@@ -67,21 +67,23 @@ const Signin = () => {
     let status = data.status;
     let msg = data.message;
     setmessage(data.message);
+    showMessage({
+      message: message,
+      type: status == "error" ? "danger" : "success",
+    });
     settype(data.status);
     console.log("type", type);
     if (type !== "error") {
-      setUser(data.user);
+      setTimeout(() => {
+        setUser(data.user);
+      }, 3500);
     }
-    setTimeout(() => {
-      setmessage();
-      settype();
-    }, 3500);
+
     setloading(false);
   };
 
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
-      {message ? <Notification type={type} message={message} /> : null}
       <Text style={styles.title}>Welcome Back</Text>
       <Text style={styles.subtitle}>
         Sign Into Your Account, And Connect With People 🚀🚀
@@ -250,6 +252,7 @@ const Signin = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      <FlashMessage duration={3000} />
     </ScrollView>
   );
 };
@@ -286,7 +289,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     margin: 3,
     fontSize: 13,
-    color: "#FF7955",
+    color: "dodgerblue",
   },
   forgot: {
     width: "100%",
@@ -300,7 +303,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     margin: 3,
     fontSize: 13,
-    color: "#FF7955",
+    color: "dodgerblue",
     marginTop: "auto",
   },
 });
