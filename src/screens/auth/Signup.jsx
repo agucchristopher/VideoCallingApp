@@ -17,6 +17,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
 import Notification from "../../components/Notification";
 import { signup } from "../../services";
+import { FlatList } from "react-native-gesture-handler";
 const Signup = () => {
   const navigation = useNavigation();
   const second = null;
@@ -35,14 +36,23 @@ const Signup = () => {
   const [gendertext, setgendertext] = useState("Male");
   const [countrytext, setcountrytext] = useState("Nigeria");
   const [gender, setgender] = useState();
-  const [country, setcountry] = useState(second);
+  const [country, setcountry] = useState("Nigeria");
+  const [showcountries, setshowcountries] = useState(false);
   useEffect(() => {
     setloading(false);
   }, []);
 
   const Signupfn = async () => {
     setloading(true);
-    let data = signup(username, password, fname, lname, email, country, gender);
+    let data = await signup(
+      username,
+      password,
+      fname,
+      lname,
+      email,
+      country,
+      gender
+    );
     console.log(data);
     data = JSON.parse(data);
     console.log(data);
@@ -51,7 +61,7 @@ const Signup = () => {
     setmessage(data.message);
     settype(data.status);
     if (type !== "error") {
-      console.log("alright");
+      redirectOtp();
     }
     setTimeout(() => {
       setmessage();
@@ -61,7 +71,7 @@ const Signup = () => {
   };
 
   const redirectOtp = () => {
-    navigation.navigate("Signin");
+    navigation.navigate("Otp", { mail: email });
     setloading(false);
   };
   const [view, setview] = useState(true);
@@ -93,19 +103,20 @@ const Signup = () => {
         placeholder={"Email Address"}
         keyboardType="email-address"
       />
-      <Input
+      {/* <Input
         value={gender}
         onChangeText={(text) => setgender(text)}
         placeholder={"Gender"}
         type="dropdown"
         defaulttext={gendertext}
-      />
+      /> */}
       <Input
         value={country}
         onChangeText={(text) => setcountry(text)}
         type="dropdown"
         defaulttext={countrytext}
         placeholder={"Country"}
+        modal={() => setshowcountries(true)}
       />
       <Input
         value={password}
@@ -131,6 +142,32 @@ const Signup = () => {
           </Text>
         </Text>
       </Pressable>
+      <Modal
+        onRequestClose={() => setshowcountries(false)}
+        transparent
+        visible={showcountries}
+      >
+        <View
+          style={{
+            backgroundColor: "#00000099",
+            flex: 1,
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "#fff",
+              width: 300,
+              alignSelf: "center",
+              height: 500,
+              borderRadius: 25,
+            }}
+          >
+            <FlatList />
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
@@ -145,8 +182,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: Dimensions.get("screen").height,
     alignContent: "center",
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   title: {
     marginTop: 15,
@@ -190,7 +227,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     margin: 3,
     fontSize: 13,
-    color: "#FF7955",
+    color: "dodgerblue",
     marginTop: "auto",
   },
 });

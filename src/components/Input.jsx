@@ -25,6 +25,7 @@ const Input = ({
   type,
   error,
   defaulttext,
+  modal
 }) => {
   const [focused, setfocused] = useState(false);
   const [open, setopen] = useState(true);
@@ -45,6 +46,7 @@ const Input = ({
               justifyContent: "space-between",
             },
           ]}
+          onPress={modal}
         >
           {type == "" ||
             (type != "dropdown" ? (
@@ -74,7 +76,7 @@ const Input = ({
             />
           ) : type == "dropdown" ? (
             <Ionicons
-              name={open ? "caret-down" : "caret-down"}
+              name={open ? "chevron-down" : "chevron-down"}
               size={26}
               style={{ marginRight: 10 }}
               color="#121212"
@@ -202,7 +204,7 @@ const styles = StyleSheet.create({
   dropdowntext: {
     color: "#2c2c2c",
     fontSize: 14,
-    fontFamily: "NotoSans-Bold",
+    fontFamily: "NotoSans-Medium",
     marginLeft: 10,
     textDecorationColor: "white",
     borderColor: "white",

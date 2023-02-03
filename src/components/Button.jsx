@@ -9,52 +9,52 @@ import {
 } from "react-native";
 import React, { memo } from "react";
 import { Button } from "react-native-paper";
+import { LinearGradient } from "expo-linear-gradient";
+// LinearGradient
 
 const CustomButton = ({ title, color, loading, onPress }) => {
   if (!loading) {
     return (
-      <TouchableOpacity onPress={onPress}>
-        <Button
-          mode="elevated"
-          style={{
-            width: Platform.OS == "ios" ? "100%" : "80%",
-            alignSelf: "center",
-            backgroundColor: "#FF7955",
-            marginTop: 10,
-            height: 50,
-            borderRadius: 45,
-            alignContent: "center",
-            justifyContent: "center",
-            backgroundColor: !loading ? "#FF7955" : "darkgrey",
-          }}
+      <TouchableOpacity>
+        <LinearGradient
+          onPress={onPress}
+          colors={["dodgerblue", "#0096C7"]}
+          style={[
+            styles.button,
+            {
+              backgroundColor: !loading ? "dodgerblue" : "darkgrey",
+              width: Platform.OS == "ios" ? "100%" : "80%",
+            },
+          ]}
         >
           <Text
             style={{
               color: "white",
               fontSize: 15,
-              fontFamily: "NotoSans-Bold",
-              alignSelf: "center",
-              justifyContent: "center",
+              fontFamily: "NotoSans-Medium",
             }}
           >
             {title}
           </Text>
-        </Button>
+        </LinearGradient>
       </TouchableOpacity>
     );
   }
   return (
-    <TouchableOpacity
-      style={[
-        styles.button,
-        {
-          backgroundColor: loading ? "#FF7955" : "darkgrey",
-          width: Platform.OS == "ios" ? "100%" : "80%",
-        },
-      ]}
-      onPress={onPress}
-    >
-      <ActivityIndicator color={"white"} size="large" />
+    <TouchableOpacity>
+      <LinearGradient
+        colors={["dodgerblue", "#0096C7"]}
+        style={[
+          styles.button,
+          {
+            backgroundColor: loading ? "dodgerblue" : "darkgrey",
+            width: Platform.OS == "ios" ? "100%" : "80%",
+          },
+        ]}
+        onPress={onPress}
+      >
+        <ActivityIndicator color={"white"} size={30} />
+      </LinearGradient>
     </TouchableOpacity>
   );
 };
@@ -63,8 +63,8 @@ export default memo(CustomButton);
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#FF7955",
-    padding: 6,
+    backgroundColor: "dodgerblue",
+    padding: 8,
     marginVertical: 6,
     borderRadius: 30,
     alignItems: "center",

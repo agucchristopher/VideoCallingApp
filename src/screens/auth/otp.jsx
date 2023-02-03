@@ -1,15 +1,13 @@
 import { Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Back, Button, Input } from "../../components";
+import { Back, Button, Input, OtpInput } from "../../components";
 
 const Otp = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { Phone } = route.params;
-  let arr = Phone.split("");
-  arr.shift();
-  const newarr = arr.join("");
+  const { mail } = route.params;
+
   const [timer, settimer] = useState(0);
   const countdown = () => {
     if (timer >= 0) {
@@ -31,18 +29,22 @@ const Otp = () => {
       return;
     }
   };
+  let number = [1, 2, 3, 4];
   return (
     <View style={styles.container}>
-      <Back />
-      <Text style={styles.title}> An SMS code was sent to</Text>
-      <Text style={styles.subtitle}>{`+234 ${newarr}`}</Text>
-      <Pressable onPress={() => navigation.goBack()}>
-        <Text style={styles.edit}> Edit Number</Text>
-      </Pressable>
-      <Input
+      {/* <Back /> */}
+      <Text style={styles.title}>Welcome Back</Text>
+      <Text style={styles.subtitle}>
+        Sign Into Your Account, And Connect With People 🚀🚀
+      </Text>
+      <Text style={styles.subtitle}></Text>
+      {/* <Input
         placeholder={"OTP"}
         // style={{ justifyContent: "space-evenly", letterSpacing: 20 }}
-      />
+      /> */}
+      <View style={{ flexDirection: "row" }}>
+        <OtpInput number={number} />
+      </View>
       <Button
         onPress={() => navigation.navigate("InputDetails")}
         title={"Continue"}
@@ -66,22 +68,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    marginTop: 10,
-    fontFamily: "NotoSans-Medium",
+    marginTop: Platform.OS == "ios" ? 50 : 20,
+    fontFamily: "NotoSans-Bold",
     fontSize: 20,
     alignSelf: "flex-start",
-    marginLeft: 20,
     marginBottom: 0,
-    color: "grey",
     fontWeight: "600",
+    marginLeft: 10,
   },
   subtitle: {
-    marginTop: 3,
-    fontFamily: "NotoSans-Bold",
-    fontSize: 18,
+    marginTop: 0,
+    fontFamily: "NotoSans-Medium",
+    fontSize: 15,
     alignSelf: "flex-start",
-    marginLeft: 20,
     marginBottom: 0,
+    lineHeight: 20,
+    marginLeft: 11,
   },
   edit: {
     color: "green",

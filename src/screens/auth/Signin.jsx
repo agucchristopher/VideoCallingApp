@@ -260,8 +260,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: Dimensions.get("screen").height,
     alignContent: "center",
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   title: {
     marginTop: Platform.OS == "ios" ? 50 : 20,

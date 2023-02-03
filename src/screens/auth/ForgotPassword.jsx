@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     margin: 3,
     fontSize: 13,
-    color: "#FF7955",
+    color: "dodgerblue",
   },
   forgot: {
     // alignContent: "flex-end",
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     margin: 3,
     fontSize: 13,
-    color: "#FF7955",
+    color: "dodgerblue",
     marginTop: "auto",
   },
 });

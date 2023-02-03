@@ -89,12 +89,21 @@ const Home = () => {
     };
   });
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <GestureHandlerRootView
+      style={{
+        backgroundColor: "white",
+        flex: 1,
+        // alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {/* <View> */}
       <PanGestureHandler onGestureEvent={gesture}>
         <Animated.View style={[styles.box, animatedStyle]} />
       </PanGestureHandler>
       <Button>{showUsername()}</Button>
       <Button onPress={logout}>Logout</Button>
+      {/* </View> */}
     </GestureHandlerRootView>
   );
 };

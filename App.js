@@ -47,7 +47,7 @@ const App = () => {
           backgroundColor={"transparent"}
           animated
           // hidden
-          translucent
+          // translucent
           barStyle={"dark-content"}
         />
         <Stack />
