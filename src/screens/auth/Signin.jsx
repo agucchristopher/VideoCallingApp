@@ -13,6 +13,7 @@ import {
   Image,
   Platform,
 } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { AuthHeader, Button, Input } from "../../components";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import facebook from "../../../assets/images/facebook.jpg";
@@ -132,126 +133,20 @@ const Signin = () => {
           </Text>
         </Text>
       </Pressable>
-      <View
-        style={{
-          margin: 10,
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            borderWidth: 1,
-            width: "43%",
-            height: 2,
-            borderColor: "grey",
-          }}
-        />
-        <Text
-          style={{
-            alignSelf: "center",
-            fontFamily: "NotoSans-Medium",
-            fontSize: 15,
-            margin: 5,
-            letterSpacing: 0,
-            color: "grey",
-          }}
-        >
-          OR
-        </Text>
-        <View
-          style={{
-            borderWidth: 1,
-            width: "43%",
-            height: 2,
-            borderColor: "grey",
-          }}
-        />
+      <View style={{ alignSelf: "center" }}>
+        <View style={styles.socialsContainer}>
+          <View style={styles.socials}>
+            <FontAwesome5 name="facebook" size={24} color="#1877F2" />
+          </View>
+          <View style={styles.socials}>
+            <FontAwesome5 name="google" size={24} color="#4c8b5f" />
+          </View>
+          <View style={styles.socials}>
+            <FontAwesome5 name="apple" size={24} color="#000" />
+          </View>
+        </View>
       </View>
-      <View
-        style={{
-          flexDirection: "column",
-          alignContent: "flex-start",
-          justifyContent: "center",
-          marginBottom: 2,
-        }}
-      >
-        <TouchableOpacity
-          style={{
-            borderColor: "grey",
-            borderWidth: 1.4,
-            borderRadius: 25,
-            margin: 6,
-            height: 50,
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            alignContent: "center",
-            alignSelf: "center",
-          }}
-          onPress={() => navigation.navigate("Glogin")}
-        >
-          <Image
-            source={facebook}
-            resizeMode={"contain"}
-            style={{
-              width: 30,
-              height: 50,
-              marginLeft: 8,
-              marginRight: 8,
-              justifyContent: "center",
-            }}
-          />
-          <Text
-            style={{
-              color: "grey",
-              fontSize: 15,
-              width: "80%",
-              fontFamily: "NotoSans-Medium",
-              alignSelf: "center",
-            }}
-          >
-            Sign In With Facebook
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            borderColor: "grey",
-            borderWidth: 1.4,
-            borderRadius: 25,
-            margin: 6,
-            height: 50,
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            alignContent: "center",
-            alignSelf: "center",
-          }}
-          onPress={() => navigation.navigate("Glogin")}
-        >
-          <Image
-            source={google}
-            resizeMode={"contain"}
-            style={{
-              width: 30,
-              height: 50,
-              marginLeft: 8,
-              marginRight: 8,
-              justifyContent: "center",
-            }}
-          />
-          <Text
-            style={{
-              color: "grey",
-              fontSize: 15,
-              width: "80%",
-              fontFamily: "NotoSans-Medium",
-              alignSelf: "center",
-            }}
-          >
-            Sign In With Google
-          </Text>
-        </TouchableOpacity>
-      </View>
+
       <FlashMessage duration={3000} />
     </ScrollView>
   );
@@ -305,6 +200,20 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "dodgerblue",
     marginTop: "auto",
+  },
+  socialsContainer: {
+    paddingVertical: 10,
+    display: "flex",
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+  socials: {
+    borderColor: "#DBDBDB",
+    paddingVertical: 8,
+    paddingHorizontal: 25,
+    borderRadius: 5,
+    borderWidth: 1,
+    marginHorizontal: 10,
   },
 });
 
