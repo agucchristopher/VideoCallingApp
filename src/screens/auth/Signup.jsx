@@ -112,7 +112,7 @@ const Signup = () => {
 
   const [view, setview] = useState(true);
   return (
-    <ScrollView style={styles.page}>
+    <ScrollView style={styles.page} showsHorizontalScrollIndicator={false}>
       <Text style={styles.title}> Sign Up</Text>
       <Text style={styles.subtitle}>
         Continue to create a new account and connect with people 👌🚀

@@ -10,14 +10,13 @@ import {
 import React, { memo } from "react";
 import { Button } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
-// LinearGradient
 
 const CustomButton = ({ title, color, loading, onPress }) => {
   if (!loading) {
     return (
       <TouchableOpacity onPress={onPress}>
         <LinearGradient
-          colors={["dodgerblue", "#00d2ff"]}
+          colors={["#8808ff", "transparent"]}
           style={[
             styles.button,
             {
@@ -42,7 +41,7 @@ const CustomButton = ({ title, color, loading, onPress }) => {
   return (
     <TouchableOpacity>
       <LinearGradient
-        colors={["#0096C7", "#00d2ff"]}
+        colors={["transparent", "#00d4ff"]}
         style={[
           styles.button,
           {
