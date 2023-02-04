@@ -1,6 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+// import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   Otp,
   Home,
@@ -12,7 +13,7 @@ import {
 } from "../screens";
 import BottomTabs from "./BottomTabs";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
@@ -20,6 +21,7 @@ const Navigation = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+          animation: "slide_from_right"
         }}
       >
         <Stack.Screen name="Loading" component={Loading} />
