@@ -16,7 +16,7 @@ const CustomButton = ({ title, color, loading, onPress }) => {
     return (
       <TouchableOpacity onPress={onPress}>
         <LinearGradient
-          colors={["#8808ff", "transparent"]}
+          colors={["transparent", "#00d0ff"]}
           style={[
             styles.button,
             {
@@ -41,7 +41,7 @@ const CustomButton = ({ title, color, loading, onPress }) => {
   return (
     <TouchableOpacity>
       <LinearGradient
-        colors={["transparent", "#00d4ff"]}
+        colors={["transparent", "#00d0ff"]}
         style={[
           styles.button,
           {
