@@ -44,7 +44,6 @@ const Signin = () => {
       console.log("user exists");
       navigation.replace("Home");
     }
-    // return data;
   };
 
   const setUser = async (user) => {
@@ -87,7 +86,8 @@ const Signin = () => {
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
       <Text style={styles.title}>Welcome Back</Text>
       <Text style={styles.subtitle}>
-        Sign Into Your Account, And Connect With People 🚀🚀
+        Sign Into Your Account,
+        <Text>And Connect With People 🚀🚀</Text>
       </Text>
       <Text style={styles.subtitle}></Text>
       <Input
@@ -133,6 +133,10 @@ const Signin = () => {
           </Text>
         </Text>
       </Pressable>
+      <Text style={[styles.title, { fontSize: 20, alignSelf: "center" }]}>
+        {" "}
+        Or{" "}
+      </Text>
       <View style={{ alignSelf: "center" }}>
         <View style={styles.socialsContainer}>
           <View style={styles.socials}>
@@ -146,7 +150,7 @@ const Signin = () => {
           </View>
         </View>
       </View>
-
+      <Text style={{ alignSelf: "center" }}>© Spurex </Text>
       <FlashMessage duration={3000} />
     </ScrollView>
   );
@@ -158,8 +162,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: Dimensions.get("screen").height,
     alignContent: "center",
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingLeft: 13,
+    paddingRight: 13,
   },
   title: {
     marginTop: Platform.OS == "ios" ? 50 : 20,
