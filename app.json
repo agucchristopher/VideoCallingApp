@@ -12,14 +12,14 @@
       "backgroundColor": "#ffffff"
     },
     "jsEngine": "hermes",
-    "plugins": ["@config-plugins/react-native-webrtc"],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "jsEngine": "jsc"
+      "jsEngine": "jsc",
+      "bundleIdentifier": "com.spurex.videocallapp"
     },
     "android": {
       "adaptiveIcon": {

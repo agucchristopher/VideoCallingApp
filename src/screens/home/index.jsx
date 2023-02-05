@@ -81,8 +81,7 @@ const Home = () => {
         translateY.value = contextY.value + event.translationY;
       },
       onEnd: (event) => {
-        contextX.value = event.translationX;
-        contextX.value = event.translationY;
+        translateY.value = withSpring(0);
       },
     },
     []
@@ -114,7 +113,7 @@ const Home = () => {
       }}
     >
       {/* <View> */}
-    
+
       <PanGestureHandler onGestureEvent={gesture}>
         <Animated.View style={[styles.box, animatedStyle]} />
       </PanGestureHandler>

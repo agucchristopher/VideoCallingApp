@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { Button, Input } from "../../components";
+import { Back, Button, Input } from "../../components";
 
 const ForgotPassword = () => {
   const [loading, setloading] = useState(false);
@@ -16,7 +16,8 @@ const ForgotPassword = () => {
     setloading(true);
   };
   return (
-    <ScrollView style={styles.page}>
+    <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
+      <Back />
       <Text style={styles.title}>Forgot Password?</Text>
       <Text style={styles.subtitle}>
         Continue The Steps And Recover Your Account 🚀🚀

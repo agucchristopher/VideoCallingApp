@@ -13,8 +13,6 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Back, Button, Input } from "../../components";
-// import FlashMessage, { showMessage } from "react-native-flash-message";
-import DropDownPicker from "react-native-dropdown-picker";
 import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
 import Notification from "../../components/Notification";
@@ -90,24 +88,34 @@ const Signup = () => {
       message: msg,
       type: type,
     });
-    if (type !== "error") {
+    if (data.status !== "error") {
       redirectOtp();
     }
-    // setTimeout(() => {
-    //   setmessage();
-    //   settype();
-    // }, 3500);
     setloading(false);
   };
 
   const redirectOtp = () => {
-    // navigation.navigate("Otp", { mail: email });
-    // setloading(false);
+    navigation.navigate("Otp", { mail: email });
+    setloading(false);
   };
 
   const [view, setview] = useState(true);
   return (
-    <ScrollView style={styles.page} showsHorizontalScrollIndicator={false}>
+    <ScrollView
+      style={styles.page}
+      StickyHeaderComponent={() => (
+        <FlashMessage
+          style={{
+            marginTop: Dimensions.get("screen").height * 0.28,
+          }}
+          ref={flashref}
+          type={type}
+          duration={3000}
+        />
+      )}
+      showsVerticalScrollIndicator={false}
+    >
+      <Back />
       <Text style={styles.title}> Sign Up</Text>
       <Text style={styles.subtitle}>
         Continue to create a new account and connect with people 👌🚀
@@ -163,7 +171,7 @@ const Signup = () => {
       <Button onPress={Signupfn} title={"Sign Up"} loading={loading} />
       <Pressable style={styles.sgn}>
         <Text style={[styles.sgntext, { color: "black" }]}>
-          Already A User?{" "}
+          Are You A User?{" "}
           <Text
             onPress={() => navigation.navigate("InputDetails")}
             style={[styles.sgntext, { margin: 0 }]}
@@ -253,14 +261,7 @@ const Signup = () => {
         </View>
       </Modal>
       <View></View>
-      <FlashMessage
-        style={{
-          marginTop: Dimensions.get("screen").height * 0.28,
-        }}
-        ref={flashref}
-        type={type}
-        duration={3000}
-      />
+      <FlashMessage ref={flashref} type={type} duration={3000} />
     </ScrollView>
   );
 };
@@ -310,6 +311,7 @@ const styles = StyleSheet.create({
   },
   sgn: {
     width: "100%",
+    marginTop: 20,
   },
   sgntext: {
     // alignContent: "center",

@@ -8,7 +8,7 @@ import {
 import React, { useState } from "react";
 import { TextInput } from "react-native-paper";
 import { Ionicons } from "react-native-vector-icons";
-import DropDownPicker from "react-native-dropdown-picker";
+// import DropDownPicker from "react-native-dropdown-picker";
 const Input = ({
   value,
   password,

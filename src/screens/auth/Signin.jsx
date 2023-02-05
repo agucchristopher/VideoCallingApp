@@ -16,8 +16,6 @@ import {
 import { FontAwesome5 } from "@expo/vector-icons";
 import { AuthHeader, Button, Input } from "../../components";
 import FlashMessage, { showMessage } from "react-native-flash-message";
-import facebook from "../../../assets/images/facebook.jpg";
-import google from "../../../assets/images/google.jpg";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import sms from "expo-sms";
@@ -150,13 +148,22 @@ const Signin = () => {
       </Text>
       <View style={{ alignSelf: "center" }}>
         <View style={styles.socialsContainer}>
-          <TouchableOpacity style={styles.socials}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Glogin")}
+            style={styles.socials}
+          >
             <FontAwesome5 name="facebook" size={24} color="#1877F2" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.socials}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Glogin")}
+            style={styles.socials}
+          >
             <FontAwesome5 name="google" size={24} color="#4c8b5f" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.socials}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Glogin")}
+            style={styles.socials}
+          >
             <FontAwesome5 name="apple" size={24} color="#000" />
           </TouchableOpacity>
         </View>

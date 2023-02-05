@@ -1,13 +1,21 @@
-import { Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Back, Button, Input, OtpInput } from "../../components";
+import { TextInput } from "react-native-gesture-handler";
 
 const Otp = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const { mail } = route.params;
-
+  const [otp, setotp] = useState([{ 1: "" }, { 2: "" }, { 3: "" }, { 4: "" }]);
   const [timer, settimer] = useState(0);
   const countdown = () => {
     if (timer >= 0) {
@@ -30,20 +38,50 @@ const Otp = () => {
     }
   };
   let number = [1, 2, 3, 4];
+
   return (
     <View style={styles.container}>
-      {/* <Back /> */}
-      <Text style={styles.title}>Welcome Back</Text>
-      <Text style={styles.subtitle}>
-        Sign Into Your Account, And Connect With People 🚀🚀
-      </Text>
+      <Back />
+      <Text style={styles.title}>Enter Code</Text>
+      <Text style={styles.subtitle}>We sent a code to {mail}</Text>
       <Text style={styles.subtitle}></Text>
-      {/* <Input
-        placeholder={"OTP"}
-        // style={{ justifyContent: "space-evenly", letterSpacing: 20 }}
-      /> */}
-      <View style={{ flexDirection: "row" }}>
-        <OtpInput number={number} />
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <FlatList
+          horizontal
+          data={[1, 2, 3, 4]}
+          renderItem={({ item }) => {
+            let itemnumber = otp[item];
+            return (
+              <TextInput
+                placeholder=""
+                maxLength={1}
+                onChangeText={(text) => {
+                  setotp([(otp[item] = text)]);
+                  console.log(otp);
+                }}
+                keyboardType="number-pad"
+                textAlign="center"
+                style={{
+                  width: 60,
+                  height: 60,
+                  backgroundColor: "white",
+                  borderWidth: 2,
+                  margin: 5,
+                  alignSelf: "center",
+                  borderRadius: 5,
+                  borderColor: "#1d1d1d",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              />
+            );
+          }}
+        />
       </View>
       <Button
         onPress={() => navigation.navigate("InputDetails")}
@@ -66,6 +104,8 @@ const styles = StyleSheet.create({
     // marginTop: StatusBar.currentHeight,
     backgroundColor: "white",
     flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   title: {
     marginTop: Platform.OS == "ios" ? 50 : 20,
