@@ -82,6 +82,7 @@ const Home = () => {
       },
       onEnd: (event) => {
         translateY.value = withSpring(0);
+        translateX.value = withSpring(0);
       },
     },
     []
@@ -108,19 +109,16 @@ const Home = () => {
       style={{
         backgroundColor: "white",
         flex: 1,
-        // alignItems: "center",
-        // justifyContent: "center",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      {/* <View> */}
-
       <PanGestureHandler onGestureEvent={gesture}>
         <Animated.View style={[styles.box, animatedStyle]} />
       </PanGestureHandler>
       <Button>{showUsername()}</Button>
       <Button onPress={logout}>Logout</Button>
       <Button onPress={toggleCamera}>Toggle</Button>
-      {/* </View> */}
     </GestureHandlerRootView>
   );
 };

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home } from "../screens";
+import { Contacts, Home } from "../screens";
 
 const BottomTabs = () => {
   const Tab = createBottomTabNavigator();
@@ -11,6 +11,8 @@ const BottomTabs = () => {
       screenOptions={{
         headerShown: false,
         style: { backgroundColor: "green" },
+        tabBarShowLabel: false,
+        tabBarStyle: { borderTopColor: "white", height: 60 },
       }}
     >
       <Tab.Screen
@@ -28,7 +30,7 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         name="Contacts"
-        component={Home}
+        component={Contacts}
         options={{
           tabBarIcon: ({ focused }) => (
             <AntDesign
@@ -47,7 +49,7 @@ const BottomTabs = () => {
             <AntDesign
               name="pluscircle"
               color={"dodgerblue"}
-              size={focused ? 30 : 25}
+              size={focused ? 45 : 45}
             />
           ),
           //   title: null,
