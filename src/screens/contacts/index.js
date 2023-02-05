@@ -2,6 +2,7 @@ import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import * as ExpoContacts from "expo-contacts";
+import { FlashList } from "@shopify/flash-list";
 const Contacts = () => {
   const [contacts, setcontacts] = useState([]);
   useEffect(() => {
@@ -23,8 +24,9 @@ const Contacts = () => {
   return (
     <ScrollView style={styles.container}>
       <Text>Contacts</Text>
-      <FlatList
+      <FlashList
         data={contacts}
+        estimatedItemSize={200}
         renderItem={({ item }) => (
           <View>
             <Text>{item.name}</Text>
