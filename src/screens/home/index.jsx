@@ -114,10 +114,7 @@ const Home = () => {
       }}
     >
       {/* <View> */}
-      <Camera
-        type={type}
-        style={{ width: 300, height: 400, alignSelf: "center" }}
-      />
+    
       <PanGestureHandler onGestureEvent={gesture}>
         <Animated.View style={[styles.box, animatedStyle]} />
       </PanGestureHandler>

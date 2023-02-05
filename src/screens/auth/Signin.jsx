@@ -67,11 +67,12 @@ const Signin = () => {
     let status = data.status;
     let msg = data.message;
     setmessage(data.message);
+    settype(data.status);
     showMessage({
-      message: message,
+      message: msg,
       type: status == "error" ? "danger" : "success",
     });
-    settype(data.status);
+
     console.log("type", type);
     if (type !== "error") {
       setTimeout(() => {
@@ -85,11 +86,10 @@ const Signin = () => {
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
       <Text style={styles.title}>Welcome Back</Text>
-      <Text style={styles.subtitle}>
-        Sign Into Your Account,
-        <Text>And Connect With People 🚀🚀</Text>
+      <Text style={styles.subtitle}>Sign Into Your Account,</Text>
+      <Text style={[styles.subtitle, { marginBottom: 20 }]}>
+        And Connect With People 🚀🚀
       </Text>
-      <Text style={styles.subtitle}></Text>
       <Input
         value={Username}
         placeholder={"Username / Email"}
@@ -133,25 +133,40 @@ const Signin = () => {
           </Text>
         </Text>
       </Pressable>
-      <Text style={[styles.title, { fontSize: 20, alignSelf: "center" }]}>
+      <Text
+        style={[
+          styles.subtitle,
+          {
+            fontSize: 15,
+            alignSelf: "center",
+            margin: 20,
+            marginBottom: 30,
+            marginTop: 30,
+          },
+        ]}
+      >
         {" "}
         Or{" "}
       </Text>
       <View style={{ alignSelf: "center" }}>
         <View style={styles.socialsContainer}>
-          <View style={styles.socials}>
+          <TouchableOpacity style={styles.socials}>
             <FontAwesome5 name="facebook" size={24} color="#1877F2" />
-          </View>
-          <View style={styles.socials}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.socials}>
             <FontAwesome5 name="google" size={24} color="#4c8b5f" />
-          </View>
-          <View style={styles.socials}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.socials}>
             <FontAwesome5 name="apple" size={24} color="#000" />
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
-      <Text style={{ alignSelf: "center" }}>© Spurex </Text>
-      <FlashMessage duration={3000} />
+      <Text style={{ alignSelf: "center", marginTop: "auto" }}> </Text>
+      <FlashMessage
+        style={{ borderRadius: 15 }}
+        icon={type == "success" ? type : "danger"}
+        duration={3000}
+      />
     </ScrollView>
   );
 };
@@ -162,8 +177,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: Dimensions.get("screen").height,
     alignContent: "center",
-    paddingLeft: 13,
-    paddingRight: 13,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   title: {
     marginTop: Platform.OS == "ios" ? 50 : 20,
@@ -209,7 +224,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     display: "flex",
     flexDirection: "row",
-    marginBottom: 20,
+    marginBottom: 0,
+    marginTop: "auto",
   },
   socials: {
     borderColor: "#DBDBDB",

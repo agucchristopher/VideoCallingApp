@@ -104,11 +104,6 @@ const Signup = () => {
     // navigation.navigate("Otp", { mail: email });
     // setloading(false);
   };
-  useEffect(() => {
-    showMessage({
-      message: "jay jay",
-    });
-  }, []);
 
   const [view, setview] = useState(true);
   return (

@@ -55,7 +55,7 @@ const Input = ({
                 onChangeText={onChangeText}
                 style={[
                   styles.input,
-                  { width: type == "password" ? "85%" : "95%" },
+                  { width: type == "password" ? "85%" : "90%" },
                 ]}
                 autoCapitalize="none"
                 secureTextEntry={type == "password" && open}
@@ -94,7 +94,6 @@ const Input = ({
       <Text style={styles.placeholder}>{placeholder}</Text>
       <TextInput
         mode="outlined"
-        // label={placeholder}
         secureTextEntry={type == "password" ? open : false}
         keyboardType={keyboardType}
         outlineColor="black"
@@ -148,6 +147,7 @@ const styles = StyleSheet.create({
     textDecorationColor: "white",
     borderColor: "white",
     height: "100%",
+    width: "100%",
   },
   root: {
     padding: 0,

@@ -16,12 +16,14 @@ const CustomButton = ({ title, color, loading, onPress }) => {
     return (
       <TouchableOpacity onPress={onPress}>
         <LinearGradient
-          colors={["transparent", "#00d0ff"]}
+          colors={["#01dffd", "#15aaff"]}
+          // colors={["#E088FB", "#74F7FF"]}
+          // start={{ x: 22, y: 77 }}
           style={[
             styles.button,
             {
               backgroundColor: !loading ? "dodgerblue" : "darkgrey",
-              width: Platform.OS == "ios" ? "100%" : "80%",
+              width: Platform.OS == "ios" ? "100%" : "90%",
             },
           ]}
         >
@@ -41,12 +43,12 @@ const CustomButton = ({ title, color, loading, onPress }) => {
   return (
     <TouchableOpacity>
       <LinearGradient
-        colors={["transparent", "#00d0ff"]}
+        colors={["#01dffd", "#15aaff"]}
         style={[
           styles.button,
           {
             backgroundColor: loading ? "dodgerblue" : "darkgrey",
-            width: Platform.OS == "ios" ? "100%" : "80%",
+            width: Platform.OS == "ios" ? "100%" : "95%",
           },
         ]}
         onPress={onPress}
@@ -62,14 +64,14 @@ export default memo(CustomButton);
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "dodgerblue",
-    padding: 8,
+    padding: 6,
     marginVertical: 6,
-    borderRadius: 30,
+    borderRadius: 25,
     alignItems: "center",
     color: "white",
     width: "100%",
     alignSelf: "center",
-    elevation: 2,
+    elevation: 4,
     marginTop: 10,
     justifyContent: "center",
   },
