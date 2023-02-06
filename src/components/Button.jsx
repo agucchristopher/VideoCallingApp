@@ -87,7 +87,7 @@ export default memo(CustomButton);
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "dodgerblue",
-    padding: 6,
+    padding: 8,
     marginVertical: 6,
     borderRadius: 25,
     alignItems: "center",

@@ -101,7 +101,7 @@ const Home = () => {
         },
       ],
       zIndex: 10000,
-      position: "absolute",
+      // position: "absolute",
     };
   });
   return (
@@ -109,8 +109,8 @@ const Home = () => {
       style={{
         backgroundColor: "white",
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
+        // alignItems: "center",
+        // justifyContent: "center",
       }}
     >
       <PanGestureHandler onGestureEvent={gesture}>

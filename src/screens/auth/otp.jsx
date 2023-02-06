@@ -8,14 +8,24 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Back, Button, Input, OtpInput } from "../../components";
+import { Back, Button } from "../../components";
 import { TextInput } from "react-native-gesture-handler";
 
 const Otp = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const { mail } = route.params;
-  const [otp, setotp] = useState([]);
+  const [nextInputIndex, setnextInputIndex] = useState(0);
+  const [otp, setotp] = useState({ 0: "", 1: "", 2: "", 3: "" });
+  let numbers = [1, 2, 3, 4];
+  let code = otp;
+  const handleChangeText = (text, index) => {
+    const newOTP = { ...otp };
+    newOTP[index] = text;
+    setotp(newOTP);
+
+    nextInputIndex = number === numbers.length - 1;
+  };
   const [timer, settimer] = useState(0);
   const countdown = () => {
     if (timer >= 0) {
@@ -37,7 +47,6 @@ const Otp = () => {
       return;
     }
   };
-  let number = [1, 2, 3, 4];
 
   return (
     <View style={styles.container}>
@@ -54,15 +63,14 @@ const Otp = () => {
         <FlatList
           horizontal
           data={[1, 2, 3, 4]}
-          renderItem={({ item }) => {
-            let itemnumber = otp[item];
+          renderItem={({ item, index }) => {
             return (
               <TextInput
                 placeholder=""
                 maxLength={1}
                 onChangeText={(text) => {
-                  setotp([(otp[item] = text)]);
-                  console.log(otp);
+                  handleChangeText(text, index);
+                  console.log(code);
                 }}
                 keyboardType="number-pad"
                 textAlign="center"
@@ -84,10 +92,7 @@ const Otp = () => {
           }}
         />
       </View>
-      <Button
-        onPress={() => navigation.navigate("InputDetails")}
-        title={"Continue"}
-      />
+      <Button onPress={() => console.log(otp)} title={"Continue"} />
       <Pressable onPress={Resend()}>
         <Text style={styles.resend}>
           {" "}

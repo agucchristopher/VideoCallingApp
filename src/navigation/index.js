@@ -10,6 +10,7 @@ import {
   Signup,
   ForgotPassword,
   Loading,
+  FBLogin,
 } from "../screens";
 import BottomTabs from "./BottomTabs";
 
@@ -29,6 +30,8 @@ const Navigation = () => {
         <Stack.Screen name="Otp" component={Otp} />
         <Stack.Screen name="InputDetails" component={Signup} />
         <Stack.Screen name="Glogin" component={GoogleLogin} />
+        <Stack.Screen name="FBlogin" component={FBLogin} />
+        <Stack.Screen name="Applelogin" component={GoogleLogin} />
         <Stack.Screen name="Home" component={BottomTabs} />
         <Stack.Screen name="Fpass" component={ForgotPassword} />
       </Stack.Navigator>

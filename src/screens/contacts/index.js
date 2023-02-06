@@ -26,7 +26,7 @@ const Contacts = () => {
       <Text>Contacts</Text>
       <FlashList
         data={contacts}
-        estimatedItemSize={200}
+        estimatedItemSize={2000}
         renderItem={({ item }) => (
           <View>
             <Text>{item.name}</Text>

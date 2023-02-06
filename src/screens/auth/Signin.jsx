@@ -72,7 +72,7 @@ const Signin = () => {
     });
 
     console.log("type", type);
-    if (type !== "error") {
+    if (status !== "error") {
       setTimeout(() => {
         setUser(data.user);
       }, 3500);

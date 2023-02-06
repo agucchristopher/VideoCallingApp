@@ -1,5 +1,12 @@
 import Home from "./home";
-import { Signin, Otp, Signup, GoogleLogin, ForgotPassword } from "./auth";
+import {
+  Signin,
+  Otp,
+  Signup,
+  GoogleLogin,
+  ForgotPassword,
+  FBLogin,
+} from "./auth";
 import Loading from "./loading";
 import Contacts from "./contacts";
 
@@ -12,4 +19,5 @@ export {
   ForgotPassword,
   Loading,
   Contacts,
+  FBLogin,
 };

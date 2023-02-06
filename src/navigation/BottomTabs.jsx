@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -12,7 +12,14 @@ const BottomTabs = () => {
         headerShown: false,
         style: { backgroundColor: "green" },
         tabBarShowLabel: false,
-        tabBarStyle: { borderTopColor: "white", height: 60 },
+        tabBarStyle: {
+          borderTopColor: "white",
+          height: 60,
+          top: -10,
+          borderRadius: 30,
+          width: Dimensions.get("screen").width * 0.98,
+          alignSelf: "center",
+        },
       }}
     >
       <Tab.Screen
