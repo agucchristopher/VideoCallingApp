@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let BaseURL = "http://192.168.112.1:8080";
+let BaseURL = "http://192.168.43.119:8080";
 export const signin = async (username, password) => {
   let headersList = {
     Accept: "*/*",
@@ -47,6 +47,24 @@ export const signup = async (
   });
 
   let response = await fetch(`${BaseURL}/users/signup`, {
+    method: "POST",
+    body: bodyContent,
+    headers: headersList,
+  });
+
+  let data = await response.text();
+  return data;
+};
+export const getotp = async (email) => {
+  let headersList = {
+    Accept: "*/*",
+    "Content-Type": "application/json",
+  };
+  let bodyContent = JSON.stringify({
+    email,
+  });
+
+  let response = await fetch(`${BaseURL}/users/generateotp`, {
     method: "POST",
     body: bodyContent,
     headers: headersList,

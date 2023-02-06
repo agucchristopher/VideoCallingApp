@@ -6,22 +6,51 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useState } from "react";
-import { Back, Button, Input } from "../../components";
+import React, { useRef, useState } from "react";
+import { AuthIcons, Back, Button, Input } from "../../components";
+import { getotp } from "../../services";
+import FlashMessage, { showMessage } from "react-native-flash-message";
+import { useNavigation } from "@react-navigation/native";
 
 const ForgotPassword = () => {
   const [loading, setloading] = useState(false);
   const [email, setemail] = useState();
-  const forgotpasswordfn = () => {
+  const [message, setmessage] = useState();
+  const [type, settype] = useState();
+  const flashref = useRef();
+  const navigation = useNavigation();
+  React.useEffect(() => {
+    setloading(false);
+  }, []);
+  const forgotpasswordfn = async () => {
     setloading(true);
+    let data = await getotp(email);
+    console.log(data);
+    setloading(false);
+    data = JSON.parse(data);
+    console.log(data);
+    let status = data.status;
+    let msg = data.message;
+    setmessage(data.message);
+    settype(data.status);
+    flashref.current.showMessage({
+      message: msg,
+      type: status == "error" ? "danger" : "success",
+    });
+
+    console.log("type", type);
+    if (status !== "error") {
+      setTimeout(() => {
+        navigation.navigate("Otp", { mail: email });
+      }, 1000);
+    }
   };
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
       <Back />
       <Text style={styles.title}>Forgot Password?</Text>
-      <Text style={styles.subtitle}>
-        Continue The Steps And Recover Your Account 🚀🚀
-      </Text>
+      <Text style={styles.subtitle}>Continue The Steps</Text>
+      <Text style={styles.subtitle}>And Recover Your Account</Text>
       <Text style={styles.subtitle}></Text>
       <Input
         value={email}
@@ -31,7 +60,37 @@ const ForgotPassword = () => {
         placeholder={"Email Address"}
         keyboardType={"email-address"}
       />
-      <Button title={"Recover Password"} loading={loading} />
+      <Button
+        title={"Send Code"}
+        onPress={forgotpasswordfn}
+        loading={loading}
+      />
+
+      <Text
+        style={[
+          styles.subtitle,
+          {
+            fontSize: 15,
+            alignSelf: "center",
+            margin: 20,
+            marginBottom: 30,
+            marginTop: 30,
+          },
+        ]}
+      >
+        {" "}
+        Or{" "}
+      </Text>
+      <AuthIcons />
+      <FlashMessage
+        style={{ borderRadius: 15 }}
+        icon={type == "success" ? type : "danger"}
+        duration={3000}
+        ref={flashref}
+        type={type}
+        animated
+        floating
+      />
     </ScrollView>
   );
 };

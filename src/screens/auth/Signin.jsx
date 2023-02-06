@@ -14,7 +14,7 @@ import {
   Platform,
 } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { AuthHeader, Button, Input } from "../../components";
+import { AuthHeader, AuthIcons, Button, Input } from "../../components";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -146,33 +146,14 @@ const Signin = () => {
         {" "}
         Or{" "}
       </Text>
-      <View style={{ alignSelf: "center" }}>
-        <View style={styles.socialsContainer}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Glogin")}
-            style={styles.socials}
-          >
-            <FontAwesome5 name="facebook" size={24} color="#1877F2" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Glogin")}
-            style={styles.socials}
-          >
-            <FontAwesome5 name="google" size={24} color="#4c8b5f" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Glogin")}
-            style={styles.socials}
-          >
-            <FontAwesome5 name="apple" size={24} color="#000" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <AuthIcons />
       <Text style={{ alignSelf: "center", marginTop: "auto" }}> </Text>
       <FlashMessage
         style={{ borderRadius: 15 }}
         icon={type == "success" ? type : "danger"}
         duration={3000}
+        animated
+        floating
       />
     </ScrollView>
   );
@@ -226,21 +207,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "dodgerblue",
     marginTop: "auto",
-  },
-  socialsContainer: {
-    paddingVertical: 10,
-    display: "flex",
-    flexDirection: "row",
-    marginBottom: 0,
-    marginTop: "auto",
-  },
-  socials: {
-    borderColor: "#DBDBDB",
-    paddingVertical: 8,
-    paddingHorizontal: 25,
-    borderRadius: 5,
-    borderWidth: 1,
-    marginHorizontal: 10,
   },
 });
 

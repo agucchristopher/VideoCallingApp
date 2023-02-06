@@ -15,15 +15,12 @@ const CustomButton = ({ title, color, loading, onPress }) => {
   if (!loading) {
     return (
       <TouchableOpacity onPress={onPress}>
-        <LinearGradient
-          colors={["#01dffd", "#15aaff"]}
-          // colors={["#E088FB", "#74F7FF"]}
-          // start={{ x: 22, y: 77 }}
+        <Pressable
+          onPress={onPress}
           style={[
             styles.button,
             {
-              backgroundColor: !loading ? "dodgerblue" : "darkgrey",
-              width: Platform.OS == "ios" ? "100%" : "90%",
+              width: Platform.OS == "ios" ? "100%" : "93%",
             },
           ]}
         >
@@ -36,27 +33,53 @@ const CustomButton = ({ title, color, loading, onPress }) => {
           >
             {title}
           </Text>
-        </LinearGradient>
+        </Pressable>
       </TouchableOpacity>
     );
   }
   return (
-    <TouchableOpacity>
-      <LinearGradient
-        colors={["#01dffd", "#15aaff"]}
+    <TouchableOpacity onPress={onPress}>
+      <Pressable
         style={[
           styles.button,
           {
-            backgroundColor: loading ? "dodgerblue" : "darkgrey",
-            width: Platform.OS == "ios" ? "100%" : "95%",
+            width: Platform.OS == "ios" ? "100%" : "90%",
+            backgroundColor: "darkgrey",
           },
         ]}
-        onPress={onPress}
       >
-        <ActivityIndicator color={"white"} size={30} />
-      </LinearGradient>
+        <Text
+          style={{
+            color: "white",
+            fontSize: 15,
+            fontFamily: "NotoSans-Medium",
+          }}
+        >
+          {title}..
+        </Text>
+      </Pressable>
     </TouchableOpacity>
   );
+  // return (
+  //   <TouchableOpacity>
+  //     <LinearGradient
+  //       // colors={["#01dffd", "#15aaff"]}
+  //       colors={["#fff", "white"]}
+  //       style={[
+  //         styles.button,
+  //         {
+  //           // backgroundColor: loading ? "dodgerblue" : "darkgrey",
+  //           width: Platform.OS == "ios" ? "100%" : "90%",
+  //           borderColor: "white",
+  //           borderWidth: 0,
+  //         },
+  //       ]}
+  //       onPress={onPress}
+  //     >
+  //       <ActivityIndicator color={"dodgerblue"} size={40} />
+  //     </LinearGradient>
+  //   </TouchableOpacity>
+  // );
 };
 
 export default memo(CustomButton);
@@ -71,8 +94,10 @@ const styles = StyleSheet.create({
     color: "white",
     width: "100%",
     alignSelf: "center",
-    elevation: 4,
-    marginTop: 10,
+    marginTop: 15,
     justifyContent: "center",
+    borderColor: "dodgerblue",
+    fontFamily: "NotoSans-Medium",
+    elevation: 2,
   },
 });

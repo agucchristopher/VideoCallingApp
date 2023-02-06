@@ -82,7 +82,7 @@ const Signup = () => {
     let status = data.status;
     let msg = data.message;
     setmessage(data.message);
-    settype(status == "error" ? "danger" : "success");
+    settype(data.status == "error" ? "danger" : "success");
     console.log("type", type);
     flashref.current.showMessage({
       message: msg,
@@ -261,7 +261,15 @@ const Signup = () => {
         </View>
       </Modal>
       <View></View>
-      <FlashMessage ref={flashref} type={type} duration={3000} />
+      <FlashMessage
+        style={{ borderRadius: 15 }}
+        icon={type == "success" ? type : "danger"}
+        duration={3000}
+        ref={flashref}
+        type={type}
+        animated
+        floating
+      />
     </ScrollView>
   );
 };

@@ -15,7 +15,7 @@ const Otp = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const { mail } = route.params;
-  const [otp, setotp] = useState([{ 1: "" }, { 2: "" }, { 3: "" }, { 4: "" }]);
+  const [otp, setotp] = useState([]);
   const [timer, settimer] = useState(0);
   const countdown = () => {
     if (timer >= 0) {
@@ -77,6 +77,7 @@ const Otp = () => {
                   borderColor: "#1d1d1d",
                   alignItems: "center",
                   justifyContent: "center",
+                  elevation: 3,
                 }}
               />
             );
