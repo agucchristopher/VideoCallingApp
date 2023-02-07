@@ -23,8 +23,8 @@ const Otp = () => {
     const newOTP = { ...otp };
     newOTP[index] = text;
     setotp(newOTP);
-
-    nextInputIndex = number === numbers.length - 1;
+const lastinputindex = numbers.length - 1
+    nextInputIndex = index === lastinputindex ? lastinputindex: index + 1;
   };
   const [timer, settimer] = useState(0);
   const countdown = () => {
