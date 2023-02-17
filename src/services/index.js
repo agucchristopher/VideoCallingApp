@@ -73,3 +73,22 @@ export const getotp = async (email) => {
   let data = await response.text();
   return data;
 };
+export const confirmOtp = async (email, token) => {
+  let headersList = {
+    Accept: "*/*",
+    "Content-Type": "application/json",
+  };
+  let bodyContent = JSON.stringify({
+    email,
+    token,
+  });
+
+  let response = await fetch(`${BaseURL}/users/verify-otp`, {
+    method: "POST",
+    body: bodyContent,
+    headers: headersList,
+  });
+
+  let data = await response.text();
+  return data;
+};

@@ -1,39 +1,54 @@
 import {
   FlatList,
+  Keyboard,
   Pressable,
   StatusBar,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Back, Button } from "../../components";
 import { TextInput } from "react-native-gesture-handler";
+import OTPInputView from "react-native-otp-input-reborn";
+import { confirmOtp } from "../../services";
+import FlashMessage, { showMessage } from "react-native-flash-message";
 
 const Otp = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const { mail } = route.params;
   const [nextInputIndex, setnextInputIndex] = useState(0);
+  const [type, settype] = useState();
+  const [message, setmessage] = useState();
   const [otp, setotp] = useState({ 0: "", 1: "", 2: "", 3: "" });
   let numbers = [1, 2, 3, 4];
-  let code = otp;
+  const lastinputindex = numbers.length - 1;
   const handleChangeText = (text, index) => {
     const newOTP = { ...otp };
     newOTP[index] = text;
     setotp(newOTP);
-const lastinputindex = numbers.length - 1
-    nextInputIndex = index === lastinputindex ? lastinputindex: index + 1;
+    let newIndex = getnewIndex(index, text);
+    setnextInputIndex(newIndex);
+    console.log(nextInputIndex);
+  };
+
+  let getnewIndex = (index, text) => {
+    if (!text) {
+      return index == 0 ? 0 : index - 1;
+    } else {
+      return index == lastinputindex ? lastinputindex : index + 1;
+    }
   };
   const [timer, settimer] = useState(0);
   const countdown = () => {
-    if (timer >= 0) {
+    if (timer == 0) {
       setInterval(() => {
         settimer((prev) => prev + 1);
       }, 1000);
     }
-    if (timer >= 9) {
+    if (timer == 9) {
       settimer(0);
     }
   };
@@ -47,7 +62,40 @@ const lastinputindex = numbers.length - 1
       return;
     }
   };
+  const clearText = () => {
+    otpInput.clear();
+  };
+  const otpInput = useRef();
+  useEffect(() => {
+    if (nextInputIndex == 3) {
+      otpInput.current.blur();
+    }
+    otpInput.current.focus();
+  }, [nextInputIndex]);
+  const isObjectValid = (obj) => {
+    return Object.values(obj).every((val) => val.trim());
+  };
+  let flashref = useRef();
+  const submitOtp = async () => {
+    Keyboard.dismiss();
+    if (isObjectValid(otp)) {
+      let val = "";
+      Object.values(otp).forEach((v) => {
+        val += v;
+      });
+      let data = await confirmOtp(mail, val);
+      let status = data.status;
+      let msg = data.message;
+      setmessage(data.message);
+      settype(data.status == "error" ? "danger" : "success");
+      flashref.current.showMessage({
+        message: msg,
+        type: data.status,
+      });
 
+      console.log(data);
+    }
+  };
   return (
     <View style={styles.container}>
       <Back />
@@ -70,7 +118,6 @@ const lastinputindex = numbers.length - 1
                 maxLength={1}
                 onChangeText={(text) => {
                   handleChangeText(text, index);
-                  console.log(code);
                 }}
                 keyboardType="number-pad"
                 textAlign="center"
@@ -87,18 +134,28 @@ const lastinputindex = numbers.length - 1
                   justifyContent: "center",
                   elevation: 3,
                 }}
+                ref={nextInputIndex === index ? otpInput : null}
               />
             );
           }}
         />
       </View>
-      <Button onPress={() => console.log(otp)} title={"Continue"} />
+
+      <Button onPress={() => submitOtp()} title={"Confirm"} />
       <Pressable onPress={Resend()}>
         <Text style={styles.resend}>
           {" "}
-          Resend Otp {timer > 0 ? <Text>00 : {timer}</Text> : ""}
+          resend code {timer > 0 ? <Text>00 : {timer}</Text> : ""}
         </Text>
       </Pressable>
+      <FlashMessage
+        style={{ borderRadius: 15 }}
+        icon={type == "success" ? type : "danger"}
+        duration={3000}
+        animated
+        floating
+        ref={flashref}
+      />
     </View>
   );
 };
